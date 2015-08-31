@@ -1,0 +1,45 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:weightSum="10"
+    android:padding="@dimen/padding"
+    >
+    <TextView
+        style="@style/layoutStyle"
+        android:id="@+id/tvLocationOfUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvLocationOfUser"
+        />
+
+    <TextView
+        style="@style/layoutStyle"
+        android:id="@+id/tvMovementOfUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvMovementOfUser"
+        />
+
+    <TextView
+        style="@style/layoutStyle"
+        android:id="@+id/tvTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvTimer"
+       />
+
+    <TextView
+        style="@style/layoutStyle"
+        android:id="@+id/tvBatteryOfPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tvBattery"
+        />
+
+</LinearLayout>
+
