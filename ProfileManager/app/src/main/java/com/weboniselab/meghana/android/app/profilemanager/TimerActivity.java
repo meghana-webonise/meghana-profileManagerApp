@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,6 +27,9 @@ public class TimerActivity extends Activity implements View.OnClickListener{
     private String time;
     Calendar calendar;
     Intent setTimerActivity;
+    private Adapter adapter;
+    DatabaseOperations databaseOperations;
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +41,9 @@ public class TimerActivity extends Activity implements View.OnClickListener{
 
     public void getPhoneTime(){
         calendar=Calendar.getInstance();
-        timeFormat=new SimpleDateFormat("HH:mm:ss");
+        timeFormat=new SimpleDateFormat(getResources().getString(R.string.timeFormat));
         time=timeFormat.format(calendar.getTime());
         Toast.makeText(TimerActivity.this, time, Toast.LENGTH_SHORT).show();
-    }
-
-    public void initialise(){
-        ivAdd=(Button) findViewById(R.id.tvAdd);
-        ivAdd.setOnClickListener(this);
     }
 
     @Override
@@ -57,6 +56,12 @@ public class TimerActivity extends Activity implements View.OnClickListener{
         }
 
     }
-
-
+    public void initialise(){
+        databaseOperations=new DatabaseOperations(this);
+        listView=(ListView) findViewById(R.id.lvTimeSetByUser);
+        adapter=new Adapter(TimerActivity.this,databaseOperations.getAllDetails());
+        listView.setAdapter(adapter);
+        ivAdd=(Button) findViewById(R.id.tvAdd);
+        ivAdd.setOnClickListener(this);
+    }
 }

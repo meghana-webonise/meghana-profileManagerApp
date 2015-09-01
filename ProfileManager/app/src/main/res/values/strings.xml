@@ -7,6 +7,18 @@
     <string name="tvTimer">Set Time</string>
     <string name="tvBattery">Battery</string>
     <string name="tvSetTime">Set Time</string>
-    <string name="tvFromTime">From Time</string>
-    <string name="tvToTime">To Time</string>
+    <string name="tvFromTime">Please Select From Time</string>
+    <string name="tvToTime">PLease Select To Time</string>
+    <string name="btnFromTime">Select From Time</string>
+    <string name="btnToTime">Select To Time</string>
+    <string name="btnDone">Done</string>
+    <string name="rbtnSilent">Silent</string>
+    <string name="rbtnVibration">Vibration</string>
+    <string name="rbtnLoud">Loud</string>
+    <string name="fromTimePickerTag">FromTimePicker</string>
+    <string name="toTimePickerTag">ToTimePicker</string>
+    <string name="popTitle">Select the Phone Mode</string>
+    <string name="selectedTime">Selected Time is </string>
+    <string name="timeSeparator">:</string>
+    <string name="timeFormat">HH:mm:ss</string>
 </resources>
