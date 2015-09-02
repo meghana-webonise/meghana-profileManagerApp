@@ -1,16 +1,13 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -23,29 +20,24 @@ to set time
  */
 public class TimerActivity extends Activity implements View.OnClickListener{
     Button ivAdd;
-    SimpleDateFormat timeFormat;
-    private String time;
-    Calendar calendar;
     Intent setTimerActivity;
     private Adapter adapter;
     DatabaseOperations databaseOperations;
     private ListView listView;
+    private PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+    Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer_activity);
         initialise();
-       // getPhoneTime();
 
+        Intent intent=new Intent(TimerActivity.this,BroadcastReceiver.class);
+        pendingIntent= PendingIntent.getBroadcast(TimerActivity.this, 0, intent, 0);
+        alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
     }
-
-    public void getPhoneTime(){
-        calendar=Calendar.getInstance();
-        timeFormat=new SimpleDateFormat(getResources().getString(R.string.timeFormat));
-        time=timeFormat.format(calendar.getTime());
-        Toast.makeText(TimerActivity.this, time, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -54,7 +46,6 @@ public class TimerActivity extends Activity implements View.OnClickListener{
                 this.startActivity(setTimerActivity);
                 break;
         }
-
     }
     public void initialise(){
         databaseOperations=new DatabaseOperations(this);

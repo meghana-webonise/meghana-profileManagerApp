@@ -21,7 +21,6 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     private static final int DB_VERSION=1;
     Context mcontext;
-
     public DatabaseOperations(Context context){
         super(context,Constants.DATABASE_NAME,null,DB_VERSION);
         mcontext=context;
@@ -31,14 +30,12 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         db.execSQL(" CREATE TABLE " +Constants.TABLE_NAME+ " ( " +Constants.COLUMN_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , "
                 +Constants.COLUMN_FROM_TIME+ " TEXT , " +Constants.COLUMN_TO_TIME+ " TEXT , "
                 +Constants.COLUMN_MODE_OF_PHONE+ " TEXT ) " );
-
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
+//method to add the details to database
     public void addDetailsToDatabase(String fromTime,String toTime,String modeOfPhone){
         SQLiteDatabase database=this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -48,43 +45,23 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         database.insert(Constants.TABLE_NAME, null, values);
         database.close();
     }
-
+//method to get all details from the database
     public List<DetailsOfPhone> getAllDetails(){
         List<DetailsOfPhone> details=new ArrayList<DetailsOfPhone>();
         String getDetailsQuery="SELECT * FROM " +Constants.TABLE_NAME;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(getDetailsQuery, null);
-
         try {
             if (cursor.moveToFirst()) do{
                 DetailsOfPhone detailsOfPhone=new DetailsOfPhone();
-
-                String fromTime=cursor.getString(cursor.getColumnIndex(Constants.COLUMN_FROM_TIME));
-                //convertToTime(fromTime);
-                detailsOfPhone.setFromTime(fromTime);
-
-                String toTime=cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TO_TIME));
-              // convertToTime(toTime);
-                detailsOfPhone.setToTime(toTime);
-
-                String modeOfPhone=cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE));
-                detailsOfPhone.setModeOfPhone(modeOfPhone);
+                detailsOfPhone.setFromTime(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_FROM_TIME)));
+                detailsOfPhone.setToTime(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TO_TIME)));
+                detailsOfPhone.setModeOfPhone(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE)));
                 details.add(detailsOfPhone);
             }while (cursor.moveToNext());
         }catch (Exception e){
             e.printStackTrace();
         }
         return details;
-    }
-
-    public void convertToTime(String time){
-        SimpleDateFormat timeFormat=new SimpleDateFormat("HH:mm");
-        try {
-            Date date=timeFormat.parse(time);
-            /*String out=timeFormat.format(date);
-            Log.v("*************", out);*/
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 }
