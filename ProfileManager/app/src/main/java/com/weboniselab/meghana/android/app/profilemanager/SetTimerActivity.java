@@ -129,7 +129,7 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
             String strHour=String.valueOf(hour);
             String strMinute=String.valueOf(minute);
             stringBuilder.append(strHour);
-            stringBuilder.append(",");
+            stringBuilder.append(":");
             stringBuilder.append(strMinute);
             return stringBuilder.toString();
         }
