@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,19 +25,14 @@ public class TimerActivity extends Activity implements View.OnClickListener{
     private Adapter adapter;
     DatabaseOperations databaseOperations;
     private ListView listView;
-    private PendingIntent pendingIntent;
-    AlarmManager alarmManager;
-    Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer_activity);
         initialise();
-
-        Intent intent=new Intent(TimerActivity.this,BroadcastReceiver.class);
-        pendingIntent= PendingIntent.getBroadcast(TimerActivity.this, 0, intent, 0);
-        alarmManager=(AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        TimeBroadcastReceiver broadcastReceiver = new TimeBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
     @Override
     public void onClick(View v) {

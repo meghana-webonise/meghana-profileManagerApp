@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
 /**
@@ -32,7 +31,6 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
     AlertDialog alertDialog;
     String modeOfPhone=" ",fromTime=" ",toTime=" ";
     DatabaseOperations databaseOperations;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,10 +93,8 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
     }
     public class TimePickerFragment extends DialogFragment implements
             TimePickerDialog.OnTimeSetListener {
-
         public static final int FLAG_FROM_TIME = 0;
         public static final int FLAG_TO_TIME = 1;
-
         private int flag = 0;
         public TimePickerFragment() {
         }
@@ -107,14 +103,12 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
             final Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
-
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
         public void setFlag(int i){
             flag=i;
         }
-
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if (flag == FLAG_FROM_TIME) {
                 tvfromTime.setText(getResources().getString(R.string.selectedTime) + hourOfDay + getResources().getString(R.string.timeSeparator) + minute);

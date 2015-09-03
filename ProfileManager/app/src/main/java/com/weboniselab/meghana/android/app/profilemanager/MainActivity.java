@@ -1,22 +1,23 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvMovementOfUser,tvTimer,tvBatteryOfPhone,tvLocationOfUser;
     Intent timerActivityIntent;
-
+    private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         initialise();
     }
-
     public void initialise(){
         tvLocationOfUser=(TextView) findViewById(R.id.tvLocationOfUser);
         tvLocationOfUser.setOnClickListener(this);
@@ -27,7 +28,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tvBatteryOfPhone=(TextView) findViewById(R.id.tvBatteryOfPhone);
         tvBatteryOfPhone.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){

@@ -1,3 +1,13 @@
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,6 +19,7 @@
     android:weightSum="10"
     android:padding="@dimen/padding"
     >
+
     <TextView
         style="@style/layoutStyle"
         android:id="@+id/tvLocationOfUser"
@@ -42,4 +53,5 @@
         />
 
 </LinearLayout>
+</RelativeLayout>
 
