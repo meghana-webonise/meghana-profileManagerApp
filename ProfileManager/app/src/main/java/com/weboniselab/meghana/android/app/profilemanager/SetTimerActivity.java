@@ -51,6 +51,7 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
                 break;
         }
     }
+
     //DialogFragment to set From Time
     public void showFromDialog(View view) {
         timePickerFragment.setFlag(TimePickerFragment.FLAG_FROM_TIME);
