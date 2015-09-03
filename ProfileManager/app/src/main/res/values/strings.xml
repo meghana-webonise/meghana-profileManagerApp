@@ -21,4 +21,13 @@
     <string name="selectedTime">Selected Time is </string>
     <string name="timeSeparator">:</string>
     <string name="timeFormat">HH:mm:ss</string>
+    <string name="btnIdle">Idle</string>
+    <string name="btnWalk">Walk</string>
+    <string name="btnDrive">Drive</string>
+
+    <string-array name="popUp">
+        <item>Silent</item>
+        <item>Vibration</item>
+        <item>Loud</item>
+    </string-array>
 </resources>

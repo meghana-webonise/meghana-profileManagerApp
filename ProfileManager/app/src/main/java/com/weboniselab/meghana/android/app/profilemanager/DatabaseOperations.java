@@ -15,15 +15,22 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     private static final int DB_VERSION=1;
     Context mcontext;
+
+    public static final String createTableTime=" CREATE TABLE " +Constants.TABLE_NAME_TIME+ " ( " +Constants.COLUMN_ID_TIME + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+            +Constants.COLUMN_FROM_TIME+ " TEXT , " +Constants.COLUMN_TO_TIME+ " TEXT , "
+            +Constants.COLUMN_MODE_OF_PHONE_TIME + " TEXT ) ";
+
+    public static final String createTableMovement=" CREATE TABLE " +Constants.TABLE_NAME_MOVEMENT+ " ( " +Constants.COLUMN_ID_MOVEMENT + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+            +Constants.COLUMN_MODE_OF_MOVEMENT+ " TEXT , " +Constants.COLUMN_MODE_OF_PHONE_MOVEMENT+ " TEXT ) ";
+
     public DatabaseOperations(Context context){
         super(context,Constants.DATABASE_NAME,null,DB_VERSION);
         mcontext=context;
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE " +Constants.TABLE_NAME+ " ( " +Constants.COLUMN_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT , "
-                +Constants.COLUMN_FROM_TIME+ " TEXT , " +Constants.COLUMN_TO_TIME+ " TEXT , "
-                +Constants.COLUMN_MODE_OF_PHONE+ " TEXT ) " );
+        db.execSQL(createTableTime);
+        db.execSQL(createTableMovement);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -35,14 +42,14 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         ContentValues values=new ContentValues();
         values.put(Constants.COLUMN_FROM_TIME,fromTime);
         values.put(Constants.COLUMN_TO_TIME,toTime);
-        values.put(Constants.COLUMN_MODE_OF_PHONE,modeOfPhone);
-        database.insert(Constants.TABLE_NAME, null, values);
+        values.put(Constants.COLUMN_MODE_OF_PHONE_TIME,modeOfPhone);
+        database.insert(Constants.TABLE_NAME_TIME, null, values);
         database.close();
     }
 //method to get all details from the database
     public List<DetailsOfPhone> getAllDetails(){
         List<DetailsOfPhone> details=new ArrayList<DetailsOfPhone>();
-        String getDetailsQuery="SELECT * FROM " +Constants.TABLE_NAME;
+        String getDetailsQuery="SELECT * FROM " +Constants.TABLE_NAME_TIME;
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(getDetailsQuery, null);
         try {
@@ -50,7 +57,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                 DetailsOfPhone detailsOfPhone=new DetailsOfPhone();
                 detailsOfPhone.setFromTime(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_FROM_TIME)));
                 detailsOfPhone.setToTime(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TO_TIME)));
-                detailsOfPhone.setModeOfPhone(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE)));
+                detailsOfPhone.setModeOfPhone(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE_TIME)));
                 details.add(detailsOfPhone);
             }while (cursor.moveToNext());
         }catch (Exception e){

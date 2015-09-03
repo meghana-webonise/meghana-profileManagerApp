@@ -1,15 +1,12 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.Calendar;
 
 /**
  * Created by webonise on 28/8/15.
@@ -20,7 +17,7 @@ this activity contains a listview which has information of time set by user and 
 to set time
  */
 public class TimerActivity extends Activity implements View.OnClickListener{
-    Button ivAdd;
+    Button btnAdd;
     Intent setTimerActivity;
     private Adapter adapter;
     DatabaseOperations databaseOperations;
@@ -48,7 +45,7 @@ public class TimerActivity extends Activity implements View.OnClickListener{
         listView=(ListView) findViewById(R.id.lvTimeSetByUser);
         adapter=new Adapter(TimerActivity.this,databaseOperations.getAllDetails());
         listView.setAdapter(adapter);
-        ivAdd=(Button) findViewById(R.id.tvAdd);
-        ivAdd.setOnClickListener(this);
+        btnAdd =(Button) findViewById(R.id.tvAdd);
+        btnAdd.setOnClickListener(this);
     }
 }

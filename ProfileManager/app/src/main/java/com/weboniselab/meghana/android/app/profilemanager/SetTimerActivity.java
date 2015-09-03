@@ -27,7 +27,7 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
     TimePickerFragment timePickerFragment;
     Button btnFromTime,btnToTime,btnDone;
     TextView tvfromTime,tvToTime;
-    final String[] items = {" Silent "," Vibration "," Loud "};
+     String[] items;
     AlertDialog alertDialog;
     String modeOfPhone=" ",fromTime=" ",toTime=" ";
     DatabaseOperations databaseOperations;
@@ -140,6 +140,7 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
         tvToTime = (TextView) findViewById(R.id.tvToTime);
         btnDone = (Button) findViewById(R.id.btnDone);
         btnDone.setOnClickListener(this);
+        items= getResources().getStringArray(R.array.popUp);
     }
 
 }
