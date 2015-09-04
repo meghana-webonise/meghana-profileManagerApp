@@ -14,6 +14,8 @@ public class MovementActivity extends Activity implements View.OnClickListener{
     private Button btnAdd;
     private ListView listView;
     Intent setMovementActivity;
+    DatabaseOperations databaseOperations;
+    private MovementAdapter movementAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MovementActivity extends Activity implements View.OnClickListener{
         listView=(ListView) findViewById(R.id.lvMovementSetByUser);
         btnAdd=(Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
-
+        databaseOperations=new DatabaseOperations(this);
+        movementAdapter=new MovementAdapter(MovementActivity.this,databaseOperations.getAllDetailsFromMovementTable());
+        listView.setAdapter(movementAdapter);
     }
 }

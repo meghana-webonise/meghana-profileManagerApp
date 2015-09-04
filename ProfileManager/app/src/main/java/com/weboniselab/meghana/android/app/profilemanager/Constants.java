@@ -4,7 +4,7 @@ package com.weboniselab.meghana.android.app.profilemanager;
  * Created by webonise on 31/8/15.
  */
 public class Constants {
-    public static final String DATABASE_NAME="ProfileManagerApp";
+    public static final String DATABASE_NAME="app";
     public static final String TABLE_NAME_TIME="timeSetByUser";
     public static final String COLUMN_ID_TIME ="id";
     public static final String COLUMN_FROM_TIME="fromTime";

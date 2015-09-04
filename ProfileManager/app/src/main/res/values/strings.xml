@@ -24,6 +24,9 @@
     <string name="btnIdle">Idle</string>
     <string name="btnWalk">Walk</string>
     <string name="btnDrive">Drive</string>
+    <string name="walk">Walk</string>
+    <string name="idle">Idle</string>
+    <string name="drive">Drive</string>
 
     <string-array name="popUp">
         <item>Silent</item>
