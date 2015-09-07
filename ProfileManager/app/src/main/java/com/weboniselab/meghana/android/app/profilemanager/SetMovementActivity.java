@@ -12,7 +12,7 @@ import android.widget.Toast;
  * Created by webonise on 3/9/15.
  */
 public class SetMovementActivity extends Activity implements View.OnClickListener{
-    Button btnIdle,btnWalk,btnDrive;
+    Button btnWalk,btnDrive;
     String[] items;
     AlertDialog alertDialog;
     String modeOfPhone,modeOfMovement;
@@ -24,8 +24,6 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
         initialise();
     }
     public void initialise(){
-        btnIdle=(Button) findViewById(R.id.btnIdle);
-        btnIdle.setOnClickListener(this);
         btnWalk=(Button) findViewById(R.id.btnWalk);
         btnWalk.setOnClickListener(this);
         btnDrive=(Button) findViewById(R.id.btnDrive);
@@ -36,10 +34,6 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btnIdle:
-                modeOfMovement=getResources().getString(R.string.idle);
-                showPopUp();
-                break;
             case R.id.btnWalk:
                 modeOfMovement=getResources().getString(R.string.walk);
                 showPopUp();
@@ -63,18 +57,18 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
                     case 0:
                         Toast.makeText(SetMovementActivity.this, items[0], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[0];
-                        databaseOperations.addDetailsToDatabaseMovementTable(modeOfMovement,modeOfPhone);
+                        databaseOperations.insertOrUpdateToDatabaseMovementTable(modeOfMovement, modeOfPhone);
                         break;
                     case 1:
                         Toast.makeText(SetMovementActivity.this, items[1], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[1];
-                        databaseOperations.addDetailsToDatabaseMovementTable(modeOfMovement,modeOfPhone);
+                        databaseOperations.insertOrUpdateToDatabaseMovementTable(modeOfMovement, modeOfPhone);
 
                         break;
                     case 2:
                         Toast.makeText(SetMovementActivity.this, items[2], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[2];
-                        databaseOperations.addDetailsToDatabaseMovementTable(modeOfMovement,modeOfPhone);
+                        databaseOperations.insertOrUpdateToDatabaseMovementTable(modeOfMovement,modeOfPhone);
                         break;
                 }
                 alertDialog.dismiss();

@@ -21,6 +21,7 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     List<DetailsOfPhone> detailsOfPhoneList;
     String toTime,fromTime,modeOfPhone,formattedFromTime,formattedToTime;
     final String[] items = {" Silent "," Vibration "," Loud "};
+    private final String formatOfTime="HH:mm";
     private AudioManager audioManager;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,7 +41,7 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     }
     public String convertToTime(String time){
         String formattedTime = null;
-        fromTimeFormat=new SimpleDateFormat("HH:mm");
+        fromTimeFormat=new SimpleDateFormat(formatOfTime);
         try {
             Date date=fromTimeFormat.parse(time);
             formattedTime=fromTimeFormat.format(date);
@@ -51,7 +52,7 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     }
     public String getCurrentTime(){
         calendar= Calendar.getInstance();
-        timeFormat=new SimpleDateFormat("HH:mm");
+        timeFormat=new SimpleDateFormat(formatOfTime);
         timeOfDevice =timeFormat.format(calendar.getTime());
         return timeOfDevice;
     }

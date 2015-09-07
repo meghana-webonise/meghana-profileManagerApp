@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,15 +68,6 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         return details;
     }
 
-//method to add details to the movement table in the database
-    public void addDetailsToDatabaseMovementTable(String modeOfMovement,String modeOfPhone){
-       SQLiteDatabase database=this.getWritableDatabase();
-       ContentValues values=new ContentValues();
-        values.put(Constants.COLUMN_MODE_OF_MOVEMENT,modeOfMovement);
-        values.put(Constants.COLUMN_MODE_OF_PHONE_MOVEMENT,modeOfPhone);
-        database.insert(Constants.TABLE_NAME_MOVEMENT, null, values);
-        database.close();
-}
 //method to get all details from movement table of the database
 public List<MovementModel> getAllDetailsFromMovementTable(){
     List<MovementModel> details=new ArrayList<MovementModel>();
@@ -93,4 +86,27 @@ public List<MovementModel> getAllDetailsFromMovementTable(){
     }
     return details;
 }
+
+//method to add or update details to the movement table in the database
+    public void insertOrUpdateToDatabaseMovementTable(String modeOfMovement,String modeOfPhone){
+        SQLiteDatabase database=this.getWritableDatabase();
+        Cursor cursor=database.rawQuery(" SELECT count(*) FROM " + Constants.TABLE_NAME_MOVEMENT,null);
+        cursor.moveToFirst();
+            if (cursor.getInt(0)>1){
+                ContentValues values1=new ContentValues();
+                values1.put(Constants.COLUMN_MODE_OF_PHONE_MOVEMENT, modeOfPhone);
+                String where = "modeOfMovement=?";
+                String[] whereArgs = new String[] {String.valueOf(modeOfMovement)};
+                database.update(Constants.TABLE_NAME_MOVEMENT,values1,where,whereArgs);
+                database.close();
+        }
+        else {
+                ContentValues values=new ContentValues();
+                values.put(Constants.COLUMN_MODE_OF_MOVEMENT,modeOfMovement);
+                values.put(Constants.COLUMN_MODE_OF_PHONE_MOVEMENT,modeOfPhone);
+                database.insert(Constants.TABLE_NAME_MOVEMENT, null, values);
+                database.close();
+        }
+    }
+
 }

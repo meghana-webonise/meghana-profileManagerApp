@@ -9,13 +9,6 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/btnIdle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnIdle"
-        />
         <Button
             android:id="@+id/btnWalk"
             android:layout_width="wrap_content"
