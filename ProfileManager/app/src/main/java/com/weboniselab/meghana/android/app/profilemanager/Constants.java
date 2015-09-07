@@ -1,10 +1,5 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.content.Context;
-import android.content.res.Resources;
-
-import com.google.android.gms.location.DetectedActivity;
-
 /**
  * Created by webonise on 31/8/15.
  */
