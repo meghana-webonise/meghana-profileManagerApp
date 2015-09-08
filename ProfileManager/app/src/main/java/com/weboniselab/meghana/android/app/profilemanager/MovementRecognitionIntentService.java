@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,15 +24,21 @@ public class MovementRecognitionIntentService extends IntentService implements
     List<MovementModel> movementModelList;
     private AudioManager audioManager;
     protected GoogleApiClient googleApiClient;
-    int start;
-    String modeOfMovement,modeOfPhone;
-    public MovementRecognitionIntentService(String name) {
-        super(name);
+    String modeOfMovement,modeOfPhone,activity;
+    enum Movement{
+        Walk,Drive
+    }
+    enum ModeOfPhone{
+        Silent,Vibration,Loud
+    }
+
+    public MovementRecognitionIntentService() {
+        super("");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        buildGoogleApiClient();
+       // buildGoogleApiClient();
         if (ActivityRecognitionResult.hasResult(intent)) {
             ActivityRecognitionResult result =
                     ActivityRecognitionResult.extractResult(intent);
@@ -39,7 +46,8 @@ public class MovementRecognitionIntentService extends IntentService implements
                     = result.getMostProbableActivity();
             int confidence = mostProbableActivity.getConfidence();
             int activityType = mostProbableActivity.getType();
-            String activity=getActivityType(activityType, confidence);
+            Toast.makeText(MovementRecognitionIntentService.this, activityType, Toast.LENGTH_SHORT).show();
+            activity=getActivityType(activityType, confidence);
 
             audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
             databaseOperations=new DatabaseOperations(this);
@@ -50,15 +58,15 @@ public class MovementRecognitionIntentService extends IntentService implements
                 modeOfPhone=movementModel.getModeOfPhone();
             }
         }
+        changeModeOfPhone();
     }
 
     public String getActivityType(int activityType,int confidence){
-        String activity=null,Walk=null,Drive=null;
         if (activityType==DetectedActivity.ON_FOOT && confidence>0){
-            activity=Walk;
+            activity=Movement.Walk.toString();
         }
         else if (activityType==DetectedActivity.IN_VEHICLE && confidence>0){
-            activity=Drive;
+            activity=Movement.Drive.toString();
         }
         return activity;
     }
@@ -71,8 +79,9 @@ public class MovementRecognitionIntentService extends IntentService implements
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        buildGoogleApiClient();
         googleApiClient.connect();
-        return start;
+        return super.onStartCommand(intent,flags,startId);
     }
     @Override
     public void onDestroy() {
@@ -80,14 +89,28 @@ public class MovementRecognitionIntentService extends IntentService implements
     }
     @Override
     public void onConnected(Bundle bundle) {
-        Toast.makeText(MovementRecognitionIntentService.this, "Connected to API", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectedToApi), Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(MovementRecognitionIntentService.this, "Connection Suspended ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectionSuspended), Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(MovementRecognitionIntentService.this, "Connection to API failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectionFailed), Toast.LENGTH_SHORT).show();
+    }
+
+    public void changeModeOfPhone(){
+        if (TextUtils.equals(modeOfMovement,activity)){
+            if (TextUtils.equals(modeOfPhone,ModeOfPhone.Silent.toString())){
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+            }
+            else if (TextUtils.equals(modeOfPhone,ModeOfPhone.Vibration.toString())){
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+            }
+            else if (TextUtils.equals(modeOfPhone,ModeOfPhone.Loud.toString())){
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            }
+        }
     }
 }

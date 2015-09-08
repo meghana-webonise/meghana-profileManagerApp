@@ -20,8 +20,9 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     DatabaseOperations databaseOperations;
     List<DetailsOfPhone> detailsOfPhoneList;
     String toTime,fromTime,modeOfPhone,formattedFromTime,formattedToTime;
-    final String[] items = {" Silent "," Vibration "," Loud "};
-    private final String formatOfTime="HH:mm";
+    enum ModeOfPhone{
+        Silent,Vibration,Loud
+    }
     private AudioManager audioManager;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -41,7 +42,7 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     }
     public String convertToTime(String time){
         String formattedTime = null;
-        fromTimeFormat=new SimpleDateFormat(formatOfTime);
+        fromTimeFormat=new SimpleDateFormat(Constants.Format_Of_Time);
         try {
             Date date=fromTimeFormat.parse(time);
             formattedTime=fromTimeFormat.format(date);
@@ -52,21 +53,21 @@ public class TimeBroadcastReceiver extends android.content.BroadcastReceiver {
     }
     public String getCurrentTime(){
         calendar= Calendar.getInstance();
-        timeFormat=new SimpleDateFormat(formatOfTime);
+        timeFormat=new SimpleDateFormat(Constants.Format_Of_Time);
         timeOfDevice =timeFormat.format(calendar.getTime());
         return timeOfDevice;
     }
     public void changePhoneMode(){
         if (TextUtils.equals(formattedFromTime,time)){
-            if (TextUtils.equals(modeOfPhone,items[0]))
+            if (TextUtils.equals(modeOfPhone,ModeOfPhone.Silent.toString()))
             {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
             }
-            else if (TextUtils.equals(modeOfPhone,items[1]))
+            else if (TextUtils.equals(modeOfPhone,ModeOfPhone.Vibration.toString()))
             {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
             }
-            else if (TextUtils.equals(modeOfPhone,items[2])){
+            else if (TextUtils.equals(modeOfPhone,ModeOfPhone.Loud.toString())){
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             }
         }

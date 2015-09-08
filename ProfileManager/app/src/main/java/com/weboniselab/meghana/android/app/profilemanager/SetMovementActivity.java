@@ -3,6 +3,7 @@ package com.weboniselab.meghana.android.app.profilemanager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
     AlertDialog alertDialog;
     String modeOfPhone,modeOfMovement;
     DatabaseOperations databaseOperations;
+    Intent movementRecognitionIntentService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,8 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
         btnDrive.setOnClickListener(this);
         items=getResources().getStringArray(R.array.popUp);
         databaseOperations=new DatabaseOperations(this);
+        movementRecognitionIntentService=new Intent(this,MovementRecognitionIntentService.class);
+        startService(movementRecognitionIntentService);
     }
     @Override
     public void onClick(View v) {
@@ -37,6 +41,7 @@ public class SetMovementActivity extends Activity implements View.OnClickListene
             case R.id.btnWalk:
                 modeOfMovement=getResources().getString(R.string.walk);
                 showPopUp();
+
                 break;
             case R.id.btnDrive:
                 modeOfMovement=getResources().getString(R.string.drive);

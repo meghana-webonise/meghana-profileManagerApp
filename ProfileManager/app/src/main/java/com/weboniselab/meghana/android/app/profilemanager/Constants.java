@@ -1,6 +1,8 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 public class Constants {
+    public static final String Format_Of_Time="HH:mm";
+
     public static final String DATABASE_NAME="managerApp";
     public static final String TABLE_NAME_TIME="timeSetByUser";
     public static final String COLUMN_ID_TIME ="id";

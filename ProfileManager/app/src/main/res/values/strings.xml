@@ -26,6 +26,9 @@
     <string name="walk">Walk</string>
     <string name="drive">Drive</string>
     <string name="unIdentifiedActivity">Unidentified Activity</string>
+    <string name="connectedToApi">Connected To API</string>
+    <string name="connectionSuspended">Connection To API suspended</string>
+    <string name="connectionFailed">Connection To API failed</string>
 
     <string-array name="popUp">
         <item>Silent</item>
