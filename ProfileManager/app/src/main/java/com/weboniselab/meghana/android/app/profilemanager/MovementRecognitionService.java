@@ -66,13 +66,7 @@ public class MovementRecognitionService extends Service implements GoogleApiClie
 
     @Override
     public void onConnected(Bundle bundle) {
-
-
-
         if (googleApiClient.isConnected()) {
-
-
-
             ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(
                     googleApiClient,
                     DETECTION_INTERVAL_MILLISECONDS,
@@ -83,8 +77,6 @@ public class MovementRecognitionService extends Service implements GoogleApiClie
                     Log.d(getClass().getName(), "####################" + status);
                 }
             });
-
-
         Toast.makeText(MovementRecognitionService.this, getResources().getString(R.string.connectedToApi), Toast.LENGTH_SHORT).show();}
     }
 
