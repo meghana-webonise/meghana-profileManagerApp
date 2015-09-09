@@ -35,8 +35,6 @@ public class MovementRecognitionService extends Service implements GoogleApiClie
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(getBaseContext(), "Service has been started..",
-                Toast.LENGTH_SHORT).show();
         return super.onStartCommand(intent, flags, startId);
     }
 

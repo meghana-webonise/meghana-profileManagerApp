@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
@@ -50,6 +51,8 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
                 showPopUp();
                 break;
             case R.id.btnDone:
+                Intent intent=new Intent(this,TimeService.class);
+                startService(intent);
                 finish();
                 break;
         }

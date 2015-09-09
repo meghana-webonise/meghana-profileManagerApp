@@ -28,10 +28,9 @@ public class TimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer_activity);
         initialise();
-        TimeBroadcastReceiver broadcastReceiver = new TimeBroadcastReceiver();
+        /*TimeBroadcastReceiver broadcastReceiver = new TimeBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
-        registerReceiver(broadcastReceiver, intentFilter);
-
+        registerReceiver(broadcastReceiver, intentFilter);*/
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
     }
@@ -53,9 +52,7 @@ public class TimerActivity extends AppCompatActivity {
     public void initialise(){
         databaseOperations=new DatabaseOperations(this);
         listView=(ListView) findViewById(R.id.lvTimeSetByUser);
-
     }
-
     @Override
     protected void onResume() {
         super.onResume();

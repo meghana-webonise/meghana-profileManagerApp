@@ -26,7 +26,7 @@ public class MovementRecognitionIntentService extends IntentService {
     protected GoogleApiClient googleApiClient;
     String modeOfMovement,modeOfPhone,activity;
     enum Movement{
-        Walk,Drive
+        Walk,Drive;
     }
     enum ModeOfPhone{
         Silent,Vibration,Loud
@@ -38,7 +38,7 @@ public class MovementRecognitionIntentService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.v(getClass().getName(),"%%%%%%%%%%%%%%%%%%%%");
+        Log.v(getClass().getName(), "%%%%%%%%%%%%%%%%%%%%");
         return super.onStartCommand(intent,flags,startId);
     }
 
@@ -72,16 +72,17 @@ public class MovementRecognitionIntentService extends IntentService {
     }
 
     public String getActivityType(int activityType,int confidence){
-        if (activityType==DetectedActivity.ON_FOOT && confidence>0){
+        if (activityType==2 && confidence>0){
             activity=Movement.Walk.toString();
         }
-        else if (activityType==DetectedActivity.IN_VEHICLE && confidence>0){
+        else if (activityType==0 && confidence>0){
             activity=Movement.Drive.toString();
         }
         return activity;
     }
 
     public void changeModeOfPhone(){
+
         if (TextUtils.equals(modeOfMovement,activity)){
             if (TextUtils.equals(modeOfPhone,ModeOfPhone.Silent.toString())){
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
