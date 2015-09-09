@@ -25,7 +25,7 @@ Activity to select From and To Time
 public class SetTimerActivity extends FragmentActivity implements View.OnClickListener
 {
     TimePickerFragment timePickerFragment;
-    Button btnFromTime,btnToTime,btnDone;
+    Button btnFromTime,btnToTime,btnDone,btnPhoneMode;
     TextView tvfromTime,tvToTime;
      String[] items;
     AlertDialog alertDialog;
@@ -46,8 +46,11 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
             case R.id.btnToTime:
                 showToDialog(view);
                 break;
-            case R.id.btnDone:
+            case R.id.btnPhoneMode:
                 showPopUp();
+                break;
+            case R.id.btnDone:
+                finish();
                 break;
         }
     }
@@ -138,6 +141,8 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
         btnToTime = (Button) findViewById(R.id.btnToTime);
         btnToTime.setOnClickListener(this);
         tvToTime = (TextView) findViewById(R.id.tvToTime);
+        btnPhoneMode=(Button) findViewById(R.id.btnPhoneMode);
+        btnPhoneMode.setOnClickListener(this);
         btnDone = (Button) findViewById(R.id.btnDone);
         btnDone.setOnClickListener(this);
         items= getResources().getStringArray(R.array.popUp);

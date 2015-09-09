@@ -18,7 +18,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAx7RMcisLMzS5pX_5xDrJQklsTpucF9zs"/>
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".TimerActivity"></activity>
         <activity android:name=".SetTimerActivity"></activity>
         <receiver android:name=".TimeBroadcastReceiver"></receiver>
@@ -35,6 +36,7 @@
         </activity>
         <activity android:name=".SetMovementActivity"></activity>
 
+        <service android:name=".MovementRecognitionService"></service>
         <service android:name=".MovementRecognitionIntentService"></service>
 
 

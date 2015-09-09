@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,8 +18,7 @@ import java.util.List;
 /**
  * Created by webonise on 7/9/15.
  */
-public class MovementRecognitionIntentService extends IntentService implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MovementRecognitionIntentService extends IntentService {
 
     DatabaseOperations databaseOperations;
     List<MovementModel> movementModelList;
@@ -37,16 +37,26 @@ public class MovementRecognitionIntentService extends IntentService implements
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.v(getClass().getName(),"%%%%%%%%%%%%%%%%%%%%");
+        return super.onStartCommand(intent,flags,startId);
+    }
+
+    @Override
     protected void onHandleIntent(Intent intent) {
        // buildGoogleApiClient();
+
+        Log.d(getClass().getName(),"%%%%%%%%%%%%%%%%%%%%");
         if (ActivityRecognitionResult.hasResult(intent)) {
+            Log.d(getClass().getName(),"$$$$$$$$$$$$$$$$$$$$$$");
             ActivityRecognitionResult result =
                     ActivityRecognitionResult.extractResult(intent);
             DetectedActivity mostProbableActivity
                     = result.getMostProbableActivity();
             int confidence = mostProbableActivity.getConfidence();
             int activityType = mostProbableActivity.getType();
-            Toast.makeText(MovementRecognitionIntentService.this, activityType, Toast.LENGTH_SHORT).show();
+            Log.d(getClass().getName(), "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+activityType);
+
             activity=getActivityType(activityType, confidence);
 
             audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -69,35 +79,6 @@ public class MovementRecognitionIntentService extends IntentService implements
             activity=Movement.Drive.toString();
         }
         return activity;
-    }
-    protected synchronized void buildGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(ActivityRecognition.API)
-                .build();
-    }
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        buildGoogleApiClient();
-        googleApiClient.connect();
-        return super.onStartCommand(intent,flags,startId);
-    }
-    @Override
-    public void onDestroy() {
-        googleApiClient.disconnect();
-    }
-    @Override
-    public void onConnected(Bundle bundle) {
-        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectedToApi), Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onConnectionSuspended(int i) {
-        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectionSuspended), Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(MovementRecognitionIntentService.this, getResources().getString(R.string.connectionFailed), Toast.LENGTH_SHORT).show();
     }
 
     public void changeModeOfPhone(){

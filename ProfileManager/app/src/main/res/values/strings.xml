@@ -29,6 +29,7 @@
     <string name="connectedToApi">Connected To API</string>
     <string name="connectionSuspended">Connection To API suspended</string>
     <string name="connectionFailed">Connection To API failed</string>
+    <string name="phoneMode">Phone Mode</string>
 
     <string-array name="popUp">
         <item>Silent</item>
