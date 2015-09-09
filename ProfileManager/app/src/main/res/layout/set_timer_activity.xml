@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnFromTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btnFromTime" />
+
+    <TextView
+        android:id="@+id/tvFromTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFromTime"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tvFromTime" />
+
+    <Button
+        android:id="@+id/btnToTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnToTime"
+        android:layout_below="@+id/tvFromTime"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvToTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnToTime"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tvToTime" />
+
+    <Button
+        android:id="@+id/btnPhoneMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvToTime"
+        android:text="@string/phoneMode"/>
+
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnPhoneMode"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btnDone"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">ProfileManager</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="tvMovementOfUser">Movement</string>
+    <string name="tvLocationOfUser">Set Location</string>
+    <string name="tvTimer">Set Time</string>
+    <string name="tvBattery">Battery</string>
+    <string name="tvSetTime">Set Time</string>
+    <string name="tvFromTime">Please Select From Time</string>
+    <string name="tvToTime">PLease Select To Time</string>
+    <string name="btnFromTime">Select From Time</string>
+    <string name="btnToTime">Select To Time</string>
+    <string name="btnDone">Done</string>
+    <string name="rbtnSilent">Silent</string>
+    <string name="rbtnVibration">Vibration</string>
+    <string name="rbtnLoud">Loud</string>
+    <string name="fromTimePickerTag">FromTimePicker</string>
+    <string name="toTimePickerTag">ToTimePicker</string>
+    <string name="popTitle">Select the Phone Mode</string>
+    <string name="selectedTime">Selected Time is </string>
+    <string name="timeSeparator">:</string>
+    <string name="timeFormat">HH:mm:ss</string>
+    <string name="btnWalk">Walk</string>
+    <string name="btnDrive">Drive</string>
+    <string name="walk">Walk</string>
+    <string name="drive">Drive</string>
+    <string name="unIdentifiedActivity">Unidentified Activity</string>
+    <string name="connectedToApi">Connected To API</string>
+    <string name="connectionSuspended">Connection To API suspended</string>
+    <string name="connectionFailed">Connection To API failed</string>
+    <string name="phoneMode">Phone Mode</string>
+
+    <string-array name="popUp">
+        <item>Silent</item>
+        <item>Vibration</item>
+        <item>Loud</item>
+    </string-array>
+</resources>
