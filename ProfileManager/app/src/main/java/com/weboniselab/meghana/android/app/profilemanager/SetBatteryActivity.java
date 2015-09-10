@@ -8,15 +8,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by webonise on 10/9/15.
  */
 public class SetBatteryActivity extends Activity implements View.OnClickListener{
     Button btnphoneMode,btnNetworkConnectivity,btnDone;
-    AlertDialog alertDialog;
+    AlertDialog alertDialog,alertDialog1;
     String modeOfPhone,networkModeOfPhone;
     String[] items;
     String [] networkMode;
+    boolean [] isSelectedArray={false,false,false};
+    private ArrayList<Integer> selectedItemIndexList=new ArrayList<Integer>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
                 showPopUp();
                 break;
             case R.id.btnNetworkConnectivity:
+                showNetworkConnectivityPopUp();
                 break;
             case R.id.btnDone:
                 finish();
@@ -58,15 +63,15 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
                 switch (item) {
                     case 0:
                         Toast.makeText(SetBatteryActivity.this, items[0], Toast.LENGTH_SHORT).show();
-                        modeOfPhone=items[0];
+                        modeOfPhone = items[0];
                         break;
                     case 1:
                         Toast.makeText(SetBatteryActivity.this, items[1], Toast.LENGTH_SHORT).show();
-                        modeOfPhone=items[1];
+                        modeOfPhone = items[1];
                         break;
                     case 2:
                         Toast.makeText(SetBatteryActivity.this, items[2], Toast.LENGTH_SHORT).show();
-                        modeOfPhone=items[2];
+                        modeOfPhone = items[2];
                         break;
                 }
                 alertDialog.dismiss();
@@ -76,4 +81,37 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
         alertDialog = builder.create();
         alertDialog.show();
     }
+
+    public void showNetworkConnectivityPopUp(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Select network Connectivity");
+       builder.setMultiChoiceItems(networkMode, isSelectedArray, new DialogInterface.OnMultiChoiceClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+               switch (which) {
+                   case 0:
+                       Toast.makeText(SetBatteryActivity.this, "" +networkMode[which], Toast.LENGTH_SHORT).show();
+                       break;
+                   case 1:
+                       Toast.makeText(SetBatteryActivity.this, "" + networkMode[which], Toast.LENGTH_SHORT).show();
+                       break;
+                   case 2:
+                       Toast.makeText(SetBatteryActivity.this, "" + networkMode[which], Toast.LENGTH_SHORT).show();
+                       break;
+               }
+               if (isChecked){
+                   selectedItemIndexList.add(which);
+               }
+               else if (selectedItemIndexList.contains(which)){
+                   selectedItemIndexList.remove(Integer.valueOf(which));
+               }
+               Toast.makeText(SetBatteryActivity.this, ""+selectedItemIndexList, Toast.LENGTH_SHORT).show();
+           }
+       });
+        alertDialog1 = builder.create();
+        alertDialog1.show();
+    }
+
+
 }
