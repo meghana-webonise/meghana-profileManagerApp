@@ -30,7 +30,10 @@
     <string name="tvVeryLowBattery">Below 15%</string>
     <string name="tvLowBattery">Between 15% and 30%</string>
     <string name="tvNormalBattery">Above 30%</string>
-    <string name="btnNetworkConnectivity">Select the Network Connectivity</string>
+    <string name="NetworkConnectivity">Select the Network Mode</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="separator">;</string>
 
     <string-array name="popUp">
         <item>Silent</item>

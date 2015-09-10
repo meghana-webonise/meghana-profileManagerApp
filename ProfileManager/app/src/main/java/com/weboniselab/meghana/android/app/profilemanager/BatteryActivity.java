@@ -37,14 +37,17 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()){
             case R.id.tvVeryLowBattery:
                 setBatteryActivity=new Intent(this,SetBatteryActivity.class);
+                setBatteryActivity.putExtra("battery Level","1");
                 startActivity(setBatteryActivity);
                 break;
             case R.id.tvLowBattery:
                 setBatteryActivity=new Intent(this,SetBatteryActivity.class);
+                setBatteryActivity.putExtra("battery Level","2");
                 startActivity(setBatteryActivity);
                 break;
             case R.id.tvNormalBattery:
                 setBatteryActivity=new Intent(this,SetBatteryActivity.class);
+                setBatteryActivity.putExtra("battery Level","3");
                 startActivity(setBatteryActivity);
                 break;
         }
