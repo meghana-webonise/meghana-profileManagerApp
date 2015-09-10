@@ -33,7 +33,7 @@
     <string name="NetworkConnectivity">Select the Network Mode</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="separator">;</string>
+    <string name="separator">,</string>
 
     <string-array name="popUp">
         <item>Silent</item>

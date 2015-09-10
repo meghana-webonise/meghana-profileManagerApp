@@ -14,6 +14,7 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
     TextView tvLowBattery,tvVeryLowBattery,tvNormalBattery;
     private android.support.v7.widget.Toolbar toolbar;
     Intent setBatteryActivity;
+    DatabaseOperations databaseOperations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
         tvLowBattery.setOnClickListener(this);
         tvNormalBattery=(TextView) findViewById(R.id.tvNormalBattery);
         tvNormalBattery.setOnClickListener(this);
+        databaseOperations=new DatabaseOperations(this);
     }
 
     @Override

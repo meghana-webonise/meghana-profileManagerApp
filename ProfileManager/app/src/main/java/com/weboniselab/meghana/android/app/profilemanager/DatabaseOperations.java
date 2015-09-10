@@ -25,6 +25,10 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public static final String createTableMovement=" CREATE TABLE " +Constants.TABLE_NAME_MOVEMENT+ " ( " +Constants.COLUMN_ID_MOVEMENT + " INTEGER PRIMARY KEY AUTOINCREMENT , "
             +Constants.COLUMN_MODE_OF_MOVEMENT+ " TEXT , " +Constants.COLUMN_MODE_OF_PHONE_MOVEMENT+ " TEXT ) ";
 
+    public static final String createTableBattery=" CREATE TABLE " +Constants.TABLE_NAME_BATTERY+ " ( " +Constants.COLUMN_ID_MOVEMENT + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+            +Constants.COLUMN_BATTERY_LEVEL+ " TEXT , " +Constants.COLUMN_MODE_OF_PHONE_BATTERY+ " TEXT , "
+            +Constants.COLUMN_MODE_OF_NETWORK + " TEXT ) ";
+
     public DatabaseOperations(Context context){
         super(context,Constants.DATABASE_NAME,null,DB_VERSION);
         mcontext=context;
@@ -33,6 +37,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createTableTime);
         db.execSQL(createTableMovement);
+        db.execSQL(createTableBattery);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -107,6 +112,48 @@ public List<MovementModel> getAllDetailsFromMovementTable(){
                 database.insert(Constants.TABLE_NAME_MOVEMENT, null, values);
                 database.close();
         }
+    }
+
+//method to add or update details to the battery table in the datbase
+    public void insertOrUpdateToDatabaseBatteryTable(String batteryLevel,String modeOfPhone,String modeOfNetwork){
+        SQLiteDatabase database=this.getWritableDatabase();
+        Cursor cursor=database.rawQuery(" SELECT count(*) FROM " + Constants.TABLE_NAME_BATTERY,null);
+        cursor.moveToFirst();
+        if (cursor.getInt(0)>2){
+            ContentValues values1=new ContentValues();
+            values1.put(Constants.COLUMN_MODE_OF_NETWORK, modeOfNetwork);
+            values1.put(Constants.COLUMN_MODE_OF_PHONE_BATTERY,modeOfPhone);
+            String where = "batteryLevel=?";
+            String[] whereArgs = new String[] {String.valueOf(batteryLevel)};
+            database.update(Constants.TABLE_NAME_BATTERY,values1,where,whereArgs);
+            database.close();
+        }
+        else {
+            ContentValues values=new ContentValues();
+            values.put(Constants.COLUMN_BATTERY_LEVEL,batteryLevel);
+            values.put(Constants.COLUMN_MODE_OF_PHONE_BATTERY,modeOfPhone);
+            values.put(Constants.COLUMN_MODE_OF_NETWORK,modeOfNetwork);
+            database.insert(Constants.TABLE_NAME_BATTERY, null, values);
+            database.close();
+        }
+    }
+    //method to get al details from batery table
+    public List<BatteryModel> getAllDetailsFromBatteryTable(){
+        List<BatteryModel> details=new ArrayList<BatteryModel>();
+        String getDetailsQuery="SELECT * FROM " +Constants.TABLE_NAME_BATTERY;
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(getDetailsQuery, null);
+        try {
+            if (cursor.moveToFirst()) do{
+                BatteryModel batteryModel=new BatteryModel();
+                batteryModel.setModeOfPhoneBattery(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE_BATTERY)));
+                batteryModel.setModeOfNetwork(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_NETWORK)));
+                details.add(batteryModel);
+            }while (cursor.moveToNext());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return details;
     }
 
 }

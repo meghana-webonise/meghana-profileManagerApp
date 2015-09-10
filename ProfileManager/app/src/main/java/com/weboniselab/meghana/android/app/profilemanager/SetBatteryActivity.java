@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -19,13 +18,13 @@ import java.util.ArrayList;
 public class SetBatteryActivity extends Activity implements View.OnClickListener{
     Button btnphoneMode,btnNetworkConnectivity,btnDone;
     AlertDialog alertDialog,alertDialog1;
-    String modeOfPhone,modeOfNetwork;
+    String modeOfPhone,modeOfNetwork, batteryLevel;
     String[] items;
     String [] networkMode;
     boolean [] isSelectedArray={false,false,false};
     private ArrayList<Integer> selectedItemIndexList=new ArrayList<Integer>();
     Intent intent;
-    String batteryLevel;
+    DatabaseOperations databaseOperations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +43,7 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
         btnDone.setOnClickListener(this);
         items= getResources().getStringArray(R.array.popUp);
         networkMode=getResources().getStringArray(R.array.networkConnectivityPopUp);
+        databaseOperations=new DatabaseOperations(this);
     }
     @Override
     public void onClick(View view) {
@@ -55,11 +55,11 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
                 showNetworkConnectivityPopUp();
                 break;
             case R.id.btnDone:
+                databaseOperations.insertOrUpdateToDatabaseBatteryTable(batteryLevel,modeOfPhone,modeOfNetwork);
                 finish();
                 break;
         }
     }
-
     //AlertDialog to select Phone Mode
     public void showPopUp(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -86,7 +86,6 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
         alertDialog = builder.create();
         alertDialog.show();
     }
-
     public void showNetworkConnectivityPopUp(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.NetworkConnectivity));
