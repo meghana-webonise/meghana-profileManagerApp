@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvMovementOfUser,tvTimer,tvBatteryOfPhone,tvLocationOfUser;
-    Intent timerActivityIntent,movementActivityIntent;
+    Intent timerActivityIntent,movementActivityIntent,batteryActivityIntent;
     private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvMovementOfUser:
                 movementActivityIntent=new Intent(this,MovementActivity.class);
                 this.startActivity(movementActivityIntent);
+                break;
+            case R.id.tvBatteryOfPhone:
+                batteryActivityIntent=new Intent(this,BatteryActivity.class);
+                this.startActivity(batteryActivityIntent);
                 break;
         }
 

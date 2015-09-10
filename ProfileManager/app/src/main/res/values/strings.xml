@@ -12,9 +12,6 @@
     <string name="btnFromTime">Select From Time</string>
     <string name="btnToTime">Select To Time</string>
     <string name="btnDone">Done</string>
-    <string name="rbtnSilent">Silent</string>
-    <string name="rbtnVibration">Vibration</string>
-    <string name="rbtnLoud">Loud</string>
     <string name="fromTimePickerTag">FromTimePicker</string>
     <string name="toTimePickerTag">ToTimePicker</string>
     <string name="popTitle">Select the Phone Mode</string>
@@ -30,10 +27,20 @@
     <string name="connectionSuspended">Connection To API suspended</string>
     <string name="connectionFailed">Connection To API failed</string>
     <string name="phoneMode">Phone Mode</string>
+    <string name="tvVeryLowBattery">Below 15%</string>
+    <string name="tvLowBattery">Between 15% and 30%</string>
+    <string name="tvNormalBattery">Above 30%</string>
+    <string name="btnNetworkConnectivity">Select the Network Connectivity</string>
 
     <string-array name="popUp">
         <item>Silent</item>
         <item>Vibration</item>
         <item>Loud</item>
+    </string-array>
+
+    <string-array name="networkConnectivityPopUp">
+        <item>Disable Wifi</item>
+        <item>Disable Celular Data</item>
+        <item>Flight Mode</item>
     </string-array>
 </resources>

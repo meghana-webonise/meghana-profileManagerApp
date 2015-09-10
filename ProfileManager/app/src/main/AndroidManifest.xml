@@ -24,6 +24,10 @@
             android:screenOrientation="portrait"></activity>
         <activity android:name=".SetTimerActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".SetBatteryActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".BatteryActivity"
+            android:screenOrientation="portrait"></activity>
         <receiver android:name=".TimeBroadcastReceiver">
             <!--<intent-filter>
                 <action android:name="android.media.RINGER_MODE_CHANGED" />

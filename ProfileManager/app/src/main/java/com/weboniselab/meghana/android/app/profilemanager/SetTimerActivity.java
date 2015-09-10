@@ -30,7 +30,7 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
     TextView tvfromTime,tvToTime;
      String[] items;
     AlertDialog alertDialog;
-    String modeOfPhone=" ",fromTime=" ",toTime=" ";
+    String modeOfPhone,fromTime,toTime;
     DatabaseOperations databaseOperations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
