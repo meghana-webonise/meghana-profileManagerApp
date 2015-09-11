@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -15,6 +16,8 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
     private android.support.v7.widget.Toolbar toolbar;
     Intent setBatteryActivity;
     DatabaseOperations databaseOperations;
+    private ListView listView;
+    private BatteryAdapter batteryAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +34,16 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
         tvLowBattery.setOnClickListener(this);
         tvNormalBattery=(TextView) findViewById(R.id.tvNormalBattery);
         tvNormalBattery.setOnClickListener(this);
-        databaseOperations=new DatabaseOperations(this);
+        /*databaseOperations=new DatabaseOperations(this);
+        listView=(ListView) findViewById(R.id.lvBatterySetByUser);*/
     }
+
+   /* @Override
+    public void onResume() {
+        super.onResume();
+        batteryAdapter=new BatteryAdapter(BatteryActivity.this,databaseOperations.getAllDetailsFromBatteryTable());
+        listView.setAdapter(batteryAdapter);
+    }*/
 
     @Override
     public void onClick(View view) {

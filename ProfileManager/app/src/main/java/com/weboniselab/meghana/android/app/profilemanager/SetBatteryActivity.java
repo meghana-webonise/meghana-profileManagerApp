@@ -55,7 +55,9 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
                 showNetworkConnectivityPopUp();
                 break;
             case R.id.btnDone:
-                databaseOperations.insertOrUpdateToDatabaseBatteryTable(batteryLevel,modeOfPhone,modeOfNetwork);
+                databaseOperations.insertOrUpdateToDatabaseBatteryTable(batteryLevel, modeOfPhone, modeOfNetwork);
+                Intent intent=new Intent(this,BatteryService.class);
+                startService(intent);
                 finish();
                 break;
         }

@@ -4,25 +4,9 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvVeryLowBattery"
+        android:id="@+id/tvBattery"
         style="@style/layoutStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvVeryLowBattery"/>
-
-    <TextView
-        android:id="@+id/tvLowBattery"
-        style="@style/layoutStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvLowBattery"/>
-
-    <TextView
-        android:id="@+id/tvNormalBattery"
-        style="@style/layoutStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvNormalBattery"/>
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

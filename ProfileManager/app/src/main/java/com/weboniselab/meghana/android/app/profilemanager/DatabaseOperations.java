@@ -137,7 +137,7 @@ public List<MovementModel> getAllDetailsFromMovementTable(){
             database.close();
         }
     }
-    //method to get al details from batery table
+    //method to get al details from battery table
     public List<BatteryModel> getAllDetailsFromBatteryTable(){
         List<BatteryModel> details=new ArrayList<BatteryModel>();
         String getDetailsQuery="SELECT * FROM " +Constants.TABLE_NAME_BATTERY;
@@ -146,6 +146,7 @@ public List<MovementModel> getAllDetailsFromMovementTable(){
         try {
             if (cursor.moveToFirst()) do{
                 BatteryModel batteryModel=new BatteryModel();
+                batteryModel.setBatteryLevel(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_BATTERY_LEVEL)));
                 batteryModel.setModeOfPhoneBattery(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE_BATTERY)));
                 batteryModel.setModeOfNetwork(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_NETWORK)));
                 details.add(batteryModel);
