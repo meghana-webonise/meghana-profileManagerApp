@@ -41,12 +41,8 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         for (int i=0;i<batteryList.size();i++){
             BatteryModel batteryModel=batteryList.get(i);
             batteryLevel=batteryModel.getBatteryLevel();
-            Log.d("$$%%%%%%%%%%",batteryLevel.toString());
             modeOfPhone=batteryModel.getModeOfPhoneBattery();
-            Log.d("@@@@@@@@@@@@@",modeOfPhone.toString());
             modeOfNetwork=batteryModel.getModeOfNetwork();
-            Log.d("############", modeOfNetwork.toString());
-
         }
         getCurrentBatteryLevel(intent);
         changePhoneMode(context);
@@ -57,19 +53,63 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         if (currentLevel >= 0 && scale > 0) {
             level = (currentLevel * 100) / scale;
         }
-        Log.d(getClass().getName(), "&&&&&&&&&&&&&&&&" + level);
     }
     public void changePhoneMode(Context context){
         if (level<15 && TextUtils.equals(batteryLevel,"1")) {
             if (TextUtils.equals(modeOfPhone, ModeOfPhone.Silent.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Vibration.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             }
 
-            try {
+           /* try {
                 split(context, modeOfNetwork);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -81,18 +121,64 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
         if ((level >15 && level<30) && TextUtils.equals(batteryLevel,"2")) {
             if (TextUtils.equals(modeOfPhone, ModeOfPhone.Silent.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Vibration.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             }
-            try {
+            /*try {
                 split(context, modeOfNetwork);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -104,17 +190,62 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
         if (level>30 && TextUtils.equals(batteryLevel,"3")) {
             if (TextUtils.equals(modeOfPhone, ModeOfPhone.Silent.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Vibration.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             } else if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())) {
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+                try {
+                    split(context, modeOfNetwork);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+
             }
-            try {
+           /* try {
                 split(context, modeOfNetwork);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -126,7 +257,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
     public void getModeOfNetwork(Context context,String modeOfNetwork) throws ClassNotFoundException,
@@ -139,11 +270,11 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (TextUtils.equals(modeOfNetwork,"1")){
-            disableMobileData(context);
+            disableMobileData(context,false);
         }
         if (TextUtils.equals(modeOfNetwork,"0") && TextUtils.equals(modeOfNetwork,"1")){
             disableWifi(context);
-            disableMobileData(context);
+            disableMobileData(context,false);
         }
     }
     public void split(Context context,String network) throws ClassNotFoundException,
@@ -154,7 +285,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             getModeOfNetwork(context,modeOfNetwork);
         }
     }
-    private void disableMobileData(Context context) throws ClassNotFoundException,
+    private void disableMobileData(Context context,boolean enable) throws ClassNotFoundException,
             NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -165,7 +296,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         final Class iConnectivityManagerClass = Class.forName(iConnectivityManager.getClass().getName());
         final Method setMobileDataEnabledMethod = iConnectivityManagerClass.getDeclaredMethod("setMobileDataEnabled", Boolean.TYPE);
         setMobileDataEnabledMethod.setAccessible(true);
-        setMobileDataEnabledMethod.invoke(iConnectivityManager, false);
+        setMobileDataEnabledMethod.invoke(iConnectivityManager, enable);
     }
     public void disableWifi(Context context){
         wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -174,9 +305,9 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         }
     }
     public void enableFlightMode(Context context){
-        if (isAirplaneEnabled==true){
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.Global.AIRPLANE_MODE_ON, isAirplaneEnabled ? 0 : 1);
-        }
+        Settings.System.putInt(context.getContentResolver(),
+                Settings.Global.AIRPLANE_MODE_ON, isAirplaneEnabled ? 0 : 1);
+        /*if (isAirplaneEnabled){
+        }*/
     }
 }
