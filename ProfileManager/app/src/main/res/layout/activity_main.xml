@@ -37,7 +37,7 @@
                     android:background="@drawable/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
                     android:layout_below="@+id/ivLocation"
                     style="@style/textSize"
                     android:textStyle="italic"
+                    android:layout_centerInParent="true"
                     />
 
             </RelativeLayout>
@@ -90,7 +91,7 @@
                     android:background="@drawable/battery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,6 +100,7 @@
                     android:layout_below="@+id/ivBattery"
                     style="@style/textSize"
                     android:textStyle="italic"
+                    android:layout_centerInParent="true"
                     />
 
             </RelativeLayout>
@@ -127,7 +129,7 @@
                     android:background="@drawable/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,6 +138,7 @@
                     android:layout_below="@+id/ivTimer"
                     style="@style/textSize"
                     android:textStyle="italic"
+                    android:layout_centerInParent="true"
                     />
 
             </RelativeLayout>
@@ -155,7 +158,7 @@
                     android:background="@drawable/car"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -164,6 +167,7 @@
                     android:layout_below="@+id/ivMovement"
                     style="@style/textSize"
                     android:textStyle="italic"
+                    android:layout_centerInParent="true"
                     />
 
             </RelativeLayout>
