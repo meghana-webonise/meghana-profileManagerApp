@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import android.widget.TextView;
  * Created by webonise on 10/9/15.
  */
 public class BatteryActivity extends AppCompatActivity implements View.OnClickListener{
-    TextView tvLowBattery,tvVeryLowBattery,tvNormalBattery;
+    Button tvLowBattery,tvVeryLowBattery,tvNormalBattery;
     private android.support.v7.widget.Toolbar toolbar;
     Intent setBatteryActivity;
     DatabaseOperations databaseOperations;
@@ -28,11 +29,11 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void initialise(){
-        tvVeryLowBattery=(TextView) findViewById(R.id.tvVeryLowBattery);
+        tvVeryLowBattery=(Button) findViewById(R.id.tvVeryLowBattery);
         tvVeryLowBattery.setOnClickListener(this);
-        tvLowBattery=(TextView) findViewById(R.id.tvLowBattery);
+        tvLowBattery=(Button) findViewById(R.id.tvLowBattery);
         tvLowBattery.setOnClickListener(this);
-        tvNormalBattery=(TextView) findViewById(R.id.tvNormalBattery);
+        tvNormalBattery=(Button) findViewById(R.id.tvNormalBattery);
         tvNormalBattery.setOnClickListener(this);
         /*databaseOperations=new DatabaseOperations(this);
         listView=(ListView) findViewById(R.id.lvBatterySetByUser);*/

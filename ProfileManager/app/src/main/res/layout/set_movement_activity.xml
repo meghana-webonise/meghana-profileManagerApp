@@ -2,30 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/padding"
+        >
 
         <Button
+            style="@style/layoutStyle"
             android:id="@+id/btnWalk"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/bottomMargin"
             android:text="@string/btnWalk"
+            android:background="@color/MovementColor"
+            android:textColor="@color/ColorText"
             />
         <Button
+            style="@style/layoutStyle"
             android:id="@+id/btnDrive"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnDrive"
+            android:layout_marginBottom="@dimen/bottomMargin"
+            android:background="@color/MovementColor"
+            android:textColor="@color/ColorText"
             />
         <Button
+            style="@style/layoutStyle"
             android:id="@+id/btnDone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btnDone"/>
+            android:text="@string/btnDone"
+            android:layout_marginBottom="@dimen/bottomMargin"
+            android:background="@color/MovementColor"
+            android:textColor="@color/ColorText"/>
 
     </LinearLayout>
 

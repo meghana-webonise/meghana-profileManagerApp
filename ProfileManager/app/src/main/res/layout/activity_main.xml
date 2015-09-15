@@ -6,52 +6,331 @@
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"
-        ></include>
-
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_centerInParent="true"
-    android:weightSum="10"
-    android:padding="@dimen/padding"
-    >
-
-    <TextView
-        style="@style/layoutStyle"
-        android:id="@+id/tvLocationOfUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvLocationOfUser"
         />
 
-    <TextView
-        style="@style/layoutStyle"
-        android:id="@+id/tvMovementOfUser"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvMovementOfUser"
-        />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+       >
 
-    <TextView
-        style="@style/layoutStyle"
-        android:id="@+id/tvTimer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvTimer"
-       />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/bottomMargin"
+            android:layout_marginBottom="@dimen/bottomMargin"
+            >
+            <RelativeLayout
+                android:background="@color/LocationColor"
+                android:layout_below="@+id/tool_bar"
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
-    <TextView
-        style="@style/layoutStyle"
-        android:id="@+id/tvBatteryOfPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvBattery"
-        />
+                <ImageView
+                    android:id="@+id/ivLocation"
+                    android:background="@drawable/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvLocationOfUser"
+                    android:layout_below="@+id/ivLocation"
+                    style="@style/textSize"
+                    android:textStyle="italic"
+                    />
 
-</LinearLayout>
+            </RelativeLayout>
+
+
+
+
+            <!--<Button
+                android:id="@+id/tvLocationOfUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/bottomMargin"
+                android:layout_weight="1"
+                android:text="@string/tvLocationOfUser"
+                android:background="@color/LocationColor"
+                android:textColor="@color/ColorText"
+                android:layout_marginRight="5dp"/>-->
+
+            <!--<Button
+                android:id="@+id/tvBatteryOfPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/bottomMargin"
+                android:layout_weight="1"
+                android:background="@color/BatteryColor"
+                android:textColor="@color/ColorText"
+                android:text="@string/tvBattery"
+                android:layout_marginLeft="5dp"/>-->
+
+
+            <RelativeLayout
+                android:background="@color/BatteryColor"
+                android:layout_below="@+id/tool_bar"
+                android:id="@+id/battery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp">
+
+                <ImageView
+                    android:id="@+id/ivBattery"
+                    android:background="@drawable/battery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvBattery"
+                    android:layout_below="@+id/ivBattery"
+                    style="@style/textSize"
+                    android:textStyle="italic"
+                    />
+
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/bottomMargin"
+            >
+
+            <RelativeLayout
+                android:background="@color/TimerColor"
+                android:layout_below="@+id/tool_bar"
+                android:id="@+id/timer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+                <ImageView
+                    android:id="@+id/ivTimer"
+                    android:background="@drawable/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvSetTime"
+                    android:layout_below="@+id/ivTimer"
+                    style="@style/textSize"
+                    android:textStyle="italic"
+                    />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:background="@color/MovementColor"
+                android:layout_below="@+id/tool_bar"
+                android:id="@+id/movement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp">
+
+                <ImageView
+                    android:id="@+id/ivMovement"
+                    android:background="@drawable/car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvMovementOfUser"
+                    android:layout_below="@+id/ivMovement"
+                    style="@style/textSize"
+                    android:textStyle="italic"
+                    />
+
+            </RelativeLayout>
+
+
+           <!-- <Button
+                android:id="@+id/tvTimer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/bottomMargin"
+                android:layout_weight="1"
+                android:background="@color/TimerColor"
+                android:textColor="@color/ColorText"
+                android:text="@string/tvSetTime"
+                android:layout_marginRight="5dp"/>
+
+            <Button
+                android:id="@+id/tvMovementOfUser"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/bottomMargin"
+                android:layout_weight="1"
+                android:background="@color/MovementColor"
+                android:textColor="@color/ColorText"
+                android:text="@string/tvMovementOfUser"
+                android:layout_marginLeft="5dp"/>-->
+        </TableRow>
+    </TableLayout>
+
 </RelativeLayout>
+
+
+    <!--
+        <RelativeLayout
+            android:paddingRight="@dimen/padding"
+            android:paddingLeft="@dimen/padding"
+            android:paddingBottom="@dimen/paddingTopAndBottom"
+            android:paddingTop="@dimen/paddingTopAndBottom"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginTop="@dimen/topMargin"
+            android:background="@color/LocationColor"
+            android:layout_below="@+id/tool_bar"
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:background="@drawable/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvLocationOfUser"
+                android:layout_below="@+id/ivLocation"
+                style="@style/textSize"
+                android:textStyle="italic"
+               />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:paddingRight="@dimen/paddingRightAndLeft"
+            android:paddingLeft="@dimen/paddingRightAndLeft"
+            android:paddingBottom="@dimen/paddingTopAndBottom"
+            android:paddingTop="@dimen/paddingTopAndBottom"
+            android:layout_marginTop="@dimen/topMargin"
+            android:layout_marginRight="@dimen/margin"
+            android:background="@color/BatteryColor"
+            android:layout_below="@+id/tool_bar"
+            android:id="@+id/battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            >
+
+            <ImageView
+                android:id="@+id/ivBattery"
+                android:background="@drawable/battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvBattery"
+                android:layout_below="@+id/ivBattery"
+                style="@style/textSize"
+                android:textStyle="italic"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:paddingBottom="@dimen/paddingTopAndBottom"
+            android:paddingTop="@dimen/paddingTopAndBottom"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_marginLeft="@dimen/margin"
+            android:background="@color/TimerColor"
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            >
+
+            <ImageView
+                android:id="@+id/ivTimer"
+                android:background="@drawable/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvSetTime"
+                android:layout_below="@+id/ivTimer"
+                style="@style/textSize"
+                android:textStyle="italic"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:paddingBottom="@dimen/paddingTopAndBottom"
+            android:paddingTop="@dimen/paddingTopAndBottom"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/MovementColor"
+            android:id="@+id/movement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            >
+
+            <ImageView
+                android:id="@+id/ivMovement"
+                android:background="@drawable/car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tvMovementOfUser"
+                android:layout_below="@+id/ivMovement"
+                style="@style/textSize"
+                android:textStyle="italic"
+                />
+
+        </RelativeLayout>-->
+
+
+
+
+
 

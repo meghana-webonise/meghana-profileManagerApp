@@ -4,16 +4,23 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/ColorPrimary</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="android:titleTextColor">@color/ColorText</item>
+        <item name="android:actionMenuTextColor">@color/ColorText</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="textSize">
         <item name="android:textSize">@dimen/tvTextSize</item>
+        <!--<item name="android:textColor">@color/ColorText</item>-->
+    </style>
+
+    <style name="btnTextSize">
+        <item name="android:textSize">@dimen/btnTextSize</item>
     </style>
     
-    <style name="layoutStyle" parent="textSize">
+    <style name="layoutStyle" parent="btnTextSize">
         <item name="android:layout_weight">2</item>
-        <item name="android:gravity">bottom</item>
+        <!--<item name="android:gravity">bottom</item>-->
     </style>
 
 </resources>

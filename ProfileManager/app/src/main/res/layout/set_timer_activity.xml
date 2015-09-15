@@ -3,52 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnFromTime"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btnFromTime" />
+        android:orientation="vertical"
+        android:padding="@dimen/padding">
+
+    <Button
+        style="@style/layoutStyle"
+        android:id="@+id/btnFromTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnFromTime"
+        android:background="@color/TimerColor"
+        android:textColor="@color/ColorText"/>
 
     <TextView
         android:id="@+id/tvFromTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnFromTime"
-        android:layout_centerHorizontal="true"
-        android:text="@string/tvFromTime" />
+        android:text="@string/tvFromTime"
+        android:layout_marginBottom="@dimen/bottomMargin"/>
 
     <Button
+        style="@style/layoutStyle"
         android:id="@+id/btnToTime"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnToTime"
-        android:layout_below="@+id/tvFromTime"
-        android:layout_centerHorizontal="true"/>
+        android:background="@color/TimerColor"
+        android:textColor="@color/ColorText"
+        />
 
     <TextView
         android:id="@+id/tvToTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnToTime"
-        android:layout_centerHorizontal="true"
-        android:text="@string/tvToTime" />
+        android:text="@string/tvToTime"
+        android:layout_marginBottom="@dimen/bottomMargin"/>
 
     <Button
+        style="@style/layoutStyle"
         android:id="@+id/btnPhoneMode"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tvToTime"
-        android:text="@string/phoneMode"/>
+        android:text="@string/phoneMode"
+        android:layout_marginBottom="@dimen/bottomMargin"
+        android:background="@color/TimerColor"
+        android:textColor="@color/ColorText"/>
 
     <Button
+        style="@style/layoutStyle"
         android:id="@+id/btnDone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnPhoneMode"
-        android:layout_centerHorizontal="true"
-        android:text="@string/btnDone"/>
+        android:text="@string/btnDone"
+        android:background="@color/TimerColor"
+        android:textColor="@color/ColorText"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

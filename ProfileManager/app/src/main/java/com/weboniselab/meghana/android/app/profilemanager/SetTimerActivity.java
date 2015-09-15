@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import java.util.Calendar;
 /*
 Activity to select From and To Time
  */
-public class SetTimerActivity extends FragmentActivity implements View.OnClickListener
+public class SetTimerActivity extends AppCompatActivity implements View.OnClickListener
 {
     TimePickerFragment timePickerFragment;
     Button btnFromTime,btnToTime,btnDone,btnPhoneMode;
@@ -32,10 +33,13 @@ public class SetTimerActivity extends FragmentActivity implements View.OnClickLi
     AlertDialog alertDialog;
     String modeOfPhone,fromTime,toTime;
     DatabaseOperations databaseOperations;
+    private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_timer_activity);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         initialise();
     }
     @Override

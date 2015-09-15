@@ -8,7 +8,7 @@
     <string name="tvBattery">Battery</string>
     <string name="tvSetTime">Set Time</string>
     <string name="tvFromTime">Please Select From Time</string>
-    <string name="tvToTime">PLease Select To Time</string>
+    <string name="tvToTime">Please Select To Time</string>
     <string name="btnFromTime">Select From Time</string>
     <string name="btnToTime">Select To Time</string>
     <string name="btnDone">Done</string>

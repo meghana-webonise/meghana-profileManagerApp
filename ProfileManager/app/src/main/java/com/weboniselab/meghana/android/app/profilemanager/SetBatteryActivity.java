@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by webonise on 10/9/15.
  */
-public class SetBatteryActivity extends Activity implements View.OnClickListener{
+public class SetBatteryActivity extends AppCompatActivity implements View.OnClickListener{
     Button btnphoneMode,btnNetworkConnectivity,btnDone;
     AlertDialog alertDialog,alertDialog1;
     String modeOfPhone,modeOfNetwork, batteryLevel;
@@ -24,11 +25,14 @@ public class SetBatteryActivity extends Activity implements View.OnClickListener
     boolean [] isSelectedArray={false,false,false};
     private ArrayList<Integer> selectedItemIndexList=new ArrayList<Integer>();
     Intent intent;
+    private android.support.v7.widget.Toolbar toolbar;
     DatabaseOperations databaseOperations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_battery_activity);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         intent=getIntent();
         batteryLevel=intent.getStringExtra("battery Level");
         Toast.makeText(SetBatteryActivity.this, ""+batteryLevel, Toast.LENGTH_SHORT).show();

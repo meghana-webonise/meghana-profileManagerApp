@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ColorPrimary">#FF5722</color>
-    <color name="ColorPrimaryDark">#E64A19</color>
+    <color name="ColorPrimary">#2554C7</color>
+    <color name="ColorPrimaryDark">#15317E</color>
+    <color name="ColorText">#FFFFFF</color>
+    <color name="LocationColor">#9c404b</color>
+    <color name="BatteryColor">#EAC117</color>
+    <color name="TimerColor">#A981B2</color>
+    <color name="MovementColor">#8BB381</color>
 </resources>

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,18 +19,22 @@ import com.google.android.gms.location.ActivityRecognition;
 /**
  * Created by webonise on 3/9/15.
  */
-public class SetMovementActivity extends Activity implements View.OnClickListener {
+public class SetMovementActivity extends AppCompatActivity implements View.OnClickListener {
     Button btnWalk, btnDrive, btnDone;
     String[] items;
     AlertDialog alertDialog;
     String modeOfPhone, modeOfMovement;
     DatabaseOperations databaseOperations;
     Intent movementRecognitionService;
+    private android.support.v7.widget.Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_movement_activity);
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         initialise();
     }
 
