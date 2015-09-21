@@ -20,40 +20,33 @@
         android:id="@+id/btnFromTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnFromTime"
+        android:hint="@string/btnFromTime"
+        android:textColorHint="@color/ColorText"
         android:background="@drawable/time_selector"
-        android:textColor="@color/ColorText"/>
-
-    <TextView
-        android:id="@+id/tvFromTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvFromTime"
+        android:textColor="@color/ColorText"
         android:layout_marginBottom="@dimen/bottomMargin"/>
+
 
     <Button
         style="@style/layoutStyle"
         android:id="@+id/btnToTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnToTime"
+        android:hint="@string/btnToTime"
+        android:textColorHint="@color/ColorText"
         android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"
+        android:layout_marginBottom="@dimen/bottomMargin"
         />
 
-    <TextView
-        android:id="@+id/tvToTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvToTime"
-        android:layout_marginBottom="@dimen/bottomMargin"/>
 
     <Button
         style="@style/layoutStyle"
         android:id="@+id/btnPhoneMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/phoneMode"
+        android:hint="@string/phoneMode"
+        android:textColorHint="@color/ColorText"
         android:layout_marginBottom="@dimen/bottomMargin"
         android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"/>

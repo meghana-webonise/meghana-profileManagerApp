@@ -11,11 +11,13 @@
     <string name="tvToTime">Please Select To Time</string>
     <string name="btnFromTime">Select From Time</string>
     <string name="btnToTime">Select To Time</string>
+    <string name="btnPhoneMode">Select Phone Mode</string>
     <string name="btnDone">Done</string>
     <string name="fromTimePickerTag">FromTimePicker</string>
     <string name="toTimePickerTag">ToTimePicker</string>
     <string name="popTitle">Select the Phone Mode</string>
-    <string name="selectedTime">Selected Time is </string>
+    <string name="selectedFromTime">Selected From Time is </string>
+    <string name="selectedToTime">Selected To Time is </string>
     <string name="timeSeparator">:</string>
     <string name="timeFormat">HH:mm:ss</string>
     <string name="btnWalk">Walk</string>

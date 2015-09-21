@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,6 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
 {
     TimePickerFragment timePickerFragment;
     Button btnFromTime,btnToTime,btnDone,btnPhoneMode;
-    TextView tvfromTime,tvToTime;
      String[] items;
     AlertDialog alertDialog;
     String modeOfPhone,fromTime,toTime;
@@ -52,14 +52,33 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
                 showToDialog(view);
                 break;
             case R.id.btnPhoneMode:
-                showPopUp();
+                modeOfPhone=showPopUp();
                 break;
             case R.id.btnDone:
-                Intent intent=new Intent(this,TimeService.class);
-                startService(intent);
-                finish();
+                if (validateInputData()) {
+                    databaseOperations.addDetailsToDatabase(fromTime, toTime, modeOfPhone);
+                    Intent intent = new Intent(this, TimeService.class);
+                    startService(intent);
+                    finish();
+                }
                 break;
         }
+    }
+
+    public boolean validateInputData(){
+        if (TextUtils.isEmpty(btnFromTime.getText().toString())){
+            Toast.makeText(SetTimerActivity.this, getResources().getString(R.string.btnFromTime), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (TextUtils.isEmpty(btnToTime.getText().toString())){
+            Toast.makeText(SetTimerActivity.this, getResources().getString(R.string.btnToTime), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (TextUtils.isEmpty(btnPhoneMode.getText().toString())){
+            Toast.makeText(SetTimerActivity.this, getResources().getString(R.string.btnPhoneMode), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     //DialogFragment to set From Time
@@ -73,7 +92,7 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
         timePickerFragment.show(this.getFragmentManager(), getResources().getString(R.string.toTimePickerTag));
     }
     //AlertDialog to select Phone Mode
-    public void showPopUp(){
+    public String showPopUp(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.popTitle));
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
@@ -82,25 +101,27 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
                     case 0:
                         Toast.makeText(SetTimerActivity.this, items[0], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[0];
-                        databaseOperations.addDetailsToDatabase(fromTime,toTime,modeOfPhone);
+                        btnPhoneMode.setText(modeOfPhone);
                         break;
                     case 1:
                         Toast.makeText(SetTimerActivity.this, items[1], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[1];
-                        databaseOperations.addDetailsToDatabase(fromTime,toTime,modeOfPhone);
+                        btnPhoneMode.setText(modeOfPhone);
                         break;
                     case 2:
                         Toast.makeText(SetTimerActivity.this, items[2], Toast.LENGTH_SHORT).show();
                         modeOfPhone=items[2];
-                        databaseOperations.addDetailsToDatabase(fromTime,toTime,modeOfPhone);
+                        btnPhoneMode.setText(modeOfPhone);
                         break;
                 }
+
                 alertDialog.dismiss();
             }
         });
 
         alertDialog = builder.create();
         alertDialog.show();
+        return modeOfPhone;
     }
     public class TimePickerFragment extends DialogFragment implements
             TimePickerDialog.OnTimeSetListener {
@@ -122,10 +143,10 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
         }
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if (flag == FLAG_FROM_TIME) {
-                tvfromTime.setText(getResources().getString(R.string.selectedTime) + hourOfDay + getResources().getString(R.string.timeSeparator) + minute);
+                btnFromTime.setText(getResources().getString(R.string.selectedFromTime)+" " + hourOfDay + getResources().getString(R.string.timeSeparator) + minute);
                 fromTime=convertionOfTimeToString(hourOfDay, minute);
             } else if (flag == FLAG_TO_TIME) {
-                tvToTime.setText(getResources().getString(R.string.selectedTime) + hourOfDay + getResources().getString(R.string.timeSeparator) + minute);
+                btnToTime.setText(getResources().getString(R.string.selectedToTime)+" " + hourOfDay + getResources().getString(R.string.timeSeparator) + minute);
                 toTime=convertionOfTimeToString(hourOfDay, minute);
             }
         }
@@ -139,15 +160,15 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
             return stringBuilder.toString();
         }
     }
+
+
     public void initialise(){
         databaseOperations=new DatabaseOperations(this);
         timePickerFragment=new TimePickerFragment();
         btnFromTime = (Button) findViewById(R.id.btnFromTime);
         btnFromTime.setOnClickListener(this);
-        tvfromTime = (TextView) findViewById(R.id.tvFromTime);
         btnToTime = (Button) findViewById(R.id.btnToTime);
         btnToTime.setOnClickListener(this);
-        tvToTime = (TextView) findViewById(R.id.tvToTime);
         btnPhoneMode=(Button) findViewById(R.id.btnPhoneMode);
         btnPhoneMode.setOnClickListener(this);
         btnDone = (Button) findViewById(R.id.btnDone);
