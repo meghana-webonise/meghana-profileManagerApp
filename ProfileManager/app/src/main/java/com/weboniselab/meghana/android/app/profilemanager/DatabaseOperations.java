@@ -114,7 +114,7 @@ public List<MovementModel> getAllDetailsFromMovementTable(){
         }
     }
 
-//method to add or update details to the battery table in the datbase
+//method to add or update details to the battery table in the database
     public void insertOrUpdateToDatabaseBatteryTable(String batteryLevel,String modeOfPhone,String modeOfNetwork){
         SQLiteDatabase database=this.getWritableDatabase();
         Cursor cursor=database.rawQuery(" SELECT count(*) FROM " + Constants.TABLE_NAME_BATTERY,null);

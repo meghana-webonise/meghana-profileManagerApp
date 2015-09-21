@@ -28,7 +28,6 @@ public class SetMovementActivity extends AppCompatActivity implements View.OnCli
     Intent movementRecognitionService;
     private android.support.v7.widget.Toolbar toolbar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,6 @@ public class SetMovementActivity extends AppCompatActivity implements View.OnCli
         setSupportActionBar(toolbar);
         initialise();
     }
-
     public void initialise() {
         btnWalk = (Button) findViewById(R.id.btnWalk);
         btnWalk.setOnClickListener(this);
@@ -48,7 +46,6 @@ public class SetMovementActivity extends AppCompatActivity implements View.OnCli
         items = getResources().getStringArray(R.array.popUp);
         databaseOperations = new DatabaseOperations(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -84,7 +81,6 @@ public class SetMovementActivity extends AppCompatActivity implements View.OnCli
                         Toast.makeText(SetMovementActivity.this, items[1], Toast.LENGTH_SHORT).show();
                         modeOfPhone = items[1];
                         databaseOperations.insertOrUpdateToDatabaseMovementTable(modeOfMovement, modeOfPhone);
-
                         break;
                     case 2:
                         Toast.makeText(SetMovementActivity.this, items[2], Toast.LENGTH_SHORT).show();

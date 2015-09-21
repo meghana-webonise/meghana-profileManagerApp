@@ -160,8 +160,6 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
             return stringBuilder.toString();
         }
     }
-
-
     public void initialise(){
         databaseOperations=new DatabaseOperations(this);
         timePickerFragment=new TimePickerFragment();
@@ -175,5 +173,4 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
         btnDone.setOnClickListener(this);
         items= getResources().getStringArray(R.array.popUp);
     }
-
 }
