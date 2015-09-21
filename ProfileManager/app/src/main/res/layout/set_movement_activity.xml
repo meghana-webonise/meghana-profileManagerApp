@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/bottomMargin"
             android:text="@string/btnWalk"
-            android:background="@color/MovementColor"
+            android:background="@drawable/movement_selector"
             android:textColor="@color/ColorText"
             />
         <Button
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/btnDrive"
             android:layout_marginBottom="@dimen/bottomMargin"
-            android:background="@color/MovementColor"
+            android:background="@drawable/movement_selector"
             android:textColor="@color/ColorText"
             />
         <Button
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="@string/btnDone"
             android:layout_marginBottom="@dimen/bottomMargin"
-            android:background="@color/MovementColor"
+            android:background="@drawable/movement_selector"
             android:textColor="@color/ColorText"/>
 
     </LinearLayout>

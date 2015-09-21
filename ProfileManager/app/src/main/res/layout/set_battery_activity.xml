@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/popTitle"
         android:layout_marginBottom="@dimen/bottomMargin"
-        android:background="@color/BatteryColor"
+        android:background="@drawable/battery_selector"
         android:textColor="@color/ColorText"/>
 
     <Button
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/NetworkConnectivity"
         android:layout_marginBottom="@dimen/bottomMargin"
-        android:background="@color/BatteryColor"
+        android:background="@drawable/battery_selector"
         android:textColor="@color/ColorText"/>
     <Button
         style="@style/layoutStyle"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="@string/btnDone"
         android:layout_marginBottom="@dimen/bottomMargin"
-        android:background="@color/BatteryColor"
+        android:background="@drawable/battery_selector"
         android:textColor="@color/ColorText"/>
     </LinearLayout>
 

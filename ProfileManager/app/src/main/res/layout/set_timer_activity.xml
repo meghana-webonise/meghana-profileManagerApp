@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnFromTime"
-        android:background="@color/TimerColor"
+        android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"/>
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnToTime"
-        android:background="@color/TimerColor"
+        android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"
         />
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="@string/phoneMode"
         android:layout_marginBottom="@dimen/bottomMargin"
-        android:background="@color/TimerColor"
+        android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"/>
 
     <Button
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnDone"
-        android:background="@color/TimerColor"
+        android:background="@drawable/time_selector"
         android:textColor="@color/ColorText"/>
 
     </LinearLayout>
