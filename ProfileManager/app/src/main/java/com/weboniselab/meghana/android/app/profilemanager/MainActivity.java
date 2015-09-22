@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     RelativeLayout tvMovementOfUser,tvTimer,tvBatteryOfPhone,tvLocationOfUser;
-    Intent timerActivityIntent,movementActivityIntent,batteryActivityIntent;
+    Intent timerActivityIntent,movementActivityIntent,batteryActivityIntent,locationActivityIntent;
     private android.support.v7.widget.Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvBatteryOfPhone.setOnClickListener(this);
     }
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    public void onClick(View view) {
+        switch (view.getId()){
             case R.id.timer:
                 timerActivityIntent=new Intent(this,TimerActivity.class);
                 this.startActivity(timerActivityIntent);
@@ -44,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.battery:
                 batteryActivityIntent=new Intent(this,BatteryActivity.class);
                 this.startActivity(batteryActivityIntent);
+                break;
+            case R.id.location:
+                locationActivityIntent=new Intent(this,LocationActivity.class);
+                this.startActivity(locationActivityIntent);
                 break;
         }
 

@@ -36,6 +36,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="separator">,</string>
+    <string name="NoLocationFound">No Location Found</string>
+    <string name="Search">Search</string>
 
     <string-array name="popUp">
         <item>Silent</item>
