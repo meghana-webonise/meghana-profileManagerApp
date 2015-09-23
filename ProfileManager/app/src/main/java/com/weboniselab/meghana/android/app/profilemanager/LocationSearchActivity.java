@@ -1,35 +1,26 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.AsyncTask;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by webonise on 21/9/15.
  */
-public class LocationSearchActivity extends AppCompatActivity implements View.OnClickListener{
+public class LocationSearchActivity extends AppCompatActivity implements LocationListener{
     private android.support.v7.widget.Toolbar toolbar;
     GoogleMap googleMap;
-    MarkerOptions markerOptions;
-    LatLng latLng;
-    EditText etLocation;
-    Button btnSearch;
-    String location;
-    SupportMapFragment supportMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,62 +28,62 @@ public class LocationSearchActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.location_search_activity);
         initialise();
     }
-    public void initialise(){
+
+    public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        supportMapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.map);
-        googleMap = supportMapFragment.getMap();
-        btnSearch=(Button) findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(this);
-        etLocation = (EditText) findViewById(R.id.etLocation);
+        try {
+            initialiseMap();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initialiseMap() {
+        if (googleMap == null) {
+            googleMap = ((MapFragment) getFragmentManager().findFragmentById(
+                    R.id.map)).getMap();
+            googleMap.setMyLocationEnabled(true);
+            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            String provider = locationManager.getBestProvider(criteria, true);
+            Location location = locationManager.getLastKnownLocation(provider);
+            if(location!=null){
+                onLocationChanged(location);
+            }
+            locationManager.requestLocationUpdates(provider, 20000, 0, this);
+        }
+        if (googleMap == null) {
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.SorryUnableToCreateMap), Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Override
-    public void onClick(View v) {
-        location = etLocation.getText().toString();
-        if(location!=null && !location.equals("")){
-            new GeocoderTask().execute(location);
-        }
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        LatLng latLng = new LatLng(latitude, longitude);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
-
-    private class GeocoderTask extends AsyncTask<String, Void, List<Address>> {
-        String addressText;
-        protected List<Address> doInBackground(String... locationName) {
-            Geocoder geocoder = new Geocoder(getBaseContext());
-            List<Address> addresses = null;
-            try {
-                // Getting a maximum of 3 Address that matches the input text
-                addresses = geocoder.getFromLocationName(locationName[0], 3);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return addresses;
-        }
-        protected void onPostExecute(List<Address> addresses) {
-            if(addresses==null || addresses.size()==0){
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.NoLocationFound), Toast.LENGTH_SHORT).show();
-            }
-            googleMap.clear();
-            // Adding Markers on Google Map for each matching address
-            for(int i=0;i<addresses.size();i++){
-                Address address = (Address) addresses.get(i);
-                // Creating an instance of GeoPoint, to display in Google Map
-                latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                addressText = String.format("%s, %s",
-                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                        address.getCountryName());
-                markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(addressText);
-                googleMap.addMarker(markerOptions);
-                Log.d(getClass().getName(),"$$$$$$$$$$" +address.getLatitude()+ " and " +address.getLongitude());
-                // Locate the first location
-                if(i==0)
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-        }
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialiseMap();
+    }
 }
