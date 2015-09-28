@@ -1,12 +1,16 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,10 +35,21 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         setContentView(R.layout.location_search_activity);
         initialise();
     }
+
+
     public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         ImageView iv=(ImageView) findViewById(R.id.iv);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         try {
             initialiseMap();
         } catch (Exception e) {
