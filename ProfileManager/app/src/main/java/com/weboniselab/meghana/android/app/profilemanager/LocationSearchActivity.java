@@ -1,16 +1,18 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
+import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Display;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class LocationSearchActivity extends AppCompatActivity implements LocationListener{
     private android.support.v7.widget.Toolbar toolbar;
     GoogleMap googleMap;
+    Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +56,22 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
             }
             locationManager.requestLocationUpdates(provider, 20000, 0, this);
         }
+        addMarker();
         if (googleMap == null) {
             Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.SorryUnableToCreateMap), Toast.LENGTH_SHORT)
                     .show();
         }
     }
-
+    public void addMarker(){
+        googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            public void onCameraChange(CameraPosition cameraPosition) {
+                MarkerOptions options = new MarkerOptions()
+                        .position(cameraPosition.target);
+                if(marker != null){marker.remove();}
+                marker = googleMap.addMarker(options);
+            }});
+    }
     @Override
     public void onLocationChanged(Location location) {
         double latitude = location.getLatitude();
@@ -84,6 +96,8 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     @Override
     protected void onResume() {
         super.onResume();
+        googleMap.clear();
         initialiseMap();
+
     }
 }
