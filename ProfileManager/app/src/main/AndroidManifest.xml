@@ -74,8 +74,6 @@
         <service android:name=".MovementRecognitionIntentService"></service>
         <service android:name=".TimeService"></service>
 
-
-
     </application>
 
 </manifest>

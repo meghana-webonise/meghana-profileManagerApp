@@ -1,21 +1,28 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
+import android.app.Fragment;
 import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.Projection;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 /**
  * Created by webonise on 21/9/15.
@@ -34,6 +41,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
 
     public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        ImageView iv=(ImageView) findViewById(R.id.iv);
         setSupportActionBar(toolbar);
         try {
             initialiseMap();
@@ -63,14 +71,23 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                     .show();
         }
     }
+
     public void addMarker(){
         googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             public void onCameraChange(CameraPosition cameraPosition) {
+                LatLng latLng = cameraPosition.target;
                 MarkerOptions options = new MarkerOptions()
-                        .position(cameraPosition.target);
-                if(marker != null){marker.remove();}
+                        .position(latLng);
+                if (marker != null) {
+                    marker.remove();
+                }
                 marker = googleMap.addMarker(options);
-            }});
+                Log.i("latLng.latitude",String.valueOf(latLng.latitude));
+                Log.i("latLng.longitude",String.valueOf(latLng.longitude));
+                marker.setVisible(false);
+
+            }
+        });
     }
     @Override
     public void onLocationChanged(Location location) {
