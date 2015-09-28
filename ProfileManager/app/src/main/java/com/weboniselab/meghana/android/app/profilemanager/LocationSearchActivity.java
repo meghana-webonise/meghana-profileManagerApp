@@ -1,28 +1,21 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.app.Fragment;
-import android.graphics.Point;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.Projection;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.VisibleRegion;
 
 /**
  * Created by webonise on 21/9/15.
@@ -38,7 +31,6 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         setContentView(R.layout.location_search_activity);
         initialise();
     }
-
     public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         ImageView iv=(ImageView) findViewById(R.id.iv);
@@ -49,7 +41,6 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
             e.printStackTrace();
         }
     }
-
     private void initialiseMap() {
         if (googleMap == null) {
             googleMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -71,7 +62,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                     .show();
         }
     }
-
+//add marker to center of screen
     public void addMarker(){
         googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             public void onCameraChange(CameraPosition cameraPosition) {
@@ -82,10 +73,9 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                     marker.remove();
                 }
                 marker = googleMap.addMarker(options);
-                Log.i("latLng.latitude",String.valueOf(latLng.latitude));
-                Log.i("latLng.longitude",String.valueOf(latLng.longitude));
                 marker.setVisible(false);
-
+                Log.d("latLng.latitude",String.valueOf(latLng.latitude));
+                Log.d("latLng.longitude", String.valueOf(latLng.longitude));
             }
         });
     }
@@ -101,7 +91,6 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     public void onProviderDisabled(String provider) {
 
     }
-
     @Override
     public void onProviderEnabled(String provider) {
 
@@ -115,6 +104,5 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         super.onResume();
         googleMap.clear();
         initialiseMap();
-
     }
 }
