@@ -31,8 +31,6 @@ public class TimerActivity extends AppCompatActivity {
         /*TimeBroadcastReceiver broadcastReceiver = new TimeBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
         registerReceiver(broadcastReceiver, intentFilter);*/
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,6 +48,8 @@ public class TimerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void initialise(){
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
         databaseOperations=new DatabaseOperations(this);
         listView=(ListView) findViewById(R.id.lvTimeSetByUser);
     }

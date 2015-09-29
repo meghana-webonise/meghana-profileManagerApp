@@ -32,6 +32,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     String modeOfPhone;
     String[] items;
     AlertDialog alertDialog;
+    DatabaseOperations databaseOperations;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                databaseOperations.addDetailsToLocationTable(latitude,longitude,Constants.Radius_Of_Geofence,modeOfPhone);
                 onBackPressed();
             }
         });
@@ -61,6 +63,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 modeOfPhone = showPopUp();
             }
         });
+        databaseOperations=new DatabaseOperations(this);
     }
     //AlertDialog to select Phone Mode
     public String showPopUp(){

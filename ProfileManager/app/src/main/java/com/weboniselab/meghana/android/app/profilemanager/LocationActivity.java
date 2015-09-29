@@ -14,7 +14,9 @@ public class LocationActivity extends AppCompatActivity {
 
     private android.support.v7.widget.Toolbar toolbar;
     Intent locationSearchActivity;
-    ListView listView;
+    private ListView listView;
+    private LocationAdapter adapter;
+    DatabaseOperations databaseOperations;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_activity);
@@ -24,7 +26,8 @@ public class LocationActivity extends AppCompatActivity {
     public void initialise(){
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-        listView=(ListView) findViewById(R.id.lvTimeSetByUser);
+        listView=(ListView) findViewById(R.id.lvLocationSetByUser);
+        databaseOperations=new DatabaseOperations(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,6 +43,12 @@ public class LocationActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter=new LocationAdapter(LocationActivity.this,databaseOperations.getAllDetailsFromLocationTable());
+        listView.setAdapter(adapter);
     }
 
 }
