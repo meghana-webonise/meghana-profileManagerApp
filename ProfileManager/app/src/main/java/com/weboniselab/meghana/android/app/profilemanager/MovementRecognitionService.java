@@ -2,14 +2,12 @@ package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -22,7 +20,6 @@ import com.google.android.gms.location.ActivityRecognition;
 public class MovementRecognitionService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     protected GoogleApiClient googleApiClient;
-    Intent movementRecognitionIntentService;
     private PendingIntent pendingIntent;
     private GoogleApiClient activityRecognitionClient;
     private int DETECTION_INTERVAL_MILLISECONDS = 10;

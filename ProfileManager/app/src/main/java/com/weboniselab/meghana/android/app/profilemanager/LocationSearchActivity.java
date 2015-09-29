@@ -1,8 +1,8 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -22,10 +22,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by webonise on 21/9/15.
@@ -41,6 +39,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     AlertDialog alertDialog;
     DatabaseOperations databaseOperations;
     String address;
+    Intent locationService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +49,13 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+        locationService=new Intent(this,LocationService.class);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseOperations.addDetailsToLocationTable(latitude,longitude,Constants.Radius_Of_Geofence,address,modeOfPhone);
+                databaseOperations.addDetailsToLocationTable(latitude, longitude, Constants.Radius_Of_Geofence, address, modeOfPhone);
+                startService(locationService);
                 onBackPressed();
             }
         });
@@ -99,7 +100,6 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 alertDialog.dismiss();
             }
         });
-
         alertDialog = builder.create();
         alertDialog.show();
         return modeOfPhone;
@@ -116,7 +116,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
             if(location!=null){
                 onLocationChanged(location);
             }
-            locationManager.requestLocationUpdates(provider, 20000, 0, this);
+           // locationManager.requestLocationUpdates(provider, 20000, 0, this);
         }
         addMarker();
         if (googleMap == null) {
@@ -154,9 +154,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         Geocoder  geocoder=new Geocoder(getApplicationContext());
         if (geocoder.isPresent()) {
             try {
-
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
                 if(addresses != null && addresses.size()>0) {
                     Address returnedAddress = addresses.get(0);
                     StringBuffer stringBuffer = new StringBuffer("Address : ");

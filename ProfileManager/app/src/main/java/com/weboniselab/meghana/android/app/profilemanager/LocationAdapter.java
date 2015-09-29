@@ -26,7 +26,6 @@ public class LocationAdapter extends BaseAdapter {
         this.context=context;
         databaseOperations=new DatabaseOperations(context);
     }
-
     @Override
     public int getCount() {
         return items.size();
