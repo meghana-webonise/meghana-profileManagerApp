@@ -1,17 +1,16 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,33 +27,71 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     private android.support.v7.widget.Toolbar toolbar;
     GoogleMap googleMap;
     Marker marker;
-
+    double latitude,longitude;
+    Button btnModeOfPhone;
+    String modeOfPhone;
+    String[] items;
+    AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_search_activity);
         initialise();
     }
-
-
     public void initialise() {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        ImageView iv=(ImageView) findViewById(R.id.iv);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
         try {
             initialiseMap();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        items= getResources().getStringArray(R.array.popUp);
+        btnModeOfPhone=(Button) findViewById(R.id.btnModeOfPhone);
+        btnModeOfPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modeOfPhone = showPopUp();
+            }
+        });
+    }
+    //AlertDialog to select Phone Mode
+    public String showPopUp(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.popTitle));
+        builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        Toast.makeText(LocationSearchActivity.this, items[0], Toast.LENGTH_SHORT).show();
+                        modeOfPhone = items[0];
+                        btnModeOfPhone.setText(modeOfPhone);
+                        break;
+                    case 1:
+                        Toast.makeText(LocationSearchActivity.this, items[1], Toast.LENGTH_SHORT).show();
+                        modeOfPhone = items[1];
+                        btnModeOfPhone.setText(modeOfPhone);
+                        break;
+                    case 2:
+                        Toast.makeText(LocationSearchActivity.this, items[2], Toast.LENGTH_SHORT).show();
+                        modeOfPhone = items[2];
+                        btnModeOfPhone.setText(modeOfPhone);
+                        break;
+                }
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = builder.create();
+        alertDialog.show();
+        return modeOfPhone;
     }
     private void initialiseMap() {
         if (googleMap == null) {
@@ -89,8 +126,10 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 }
                 marker = googleMap.addMarker(options);
                 marker.setVisible(false);
-                Log.d("latLng.latitude",String.valueOf(latLng.latitude));
-                Log.d("latLng.longitude", String.valueOf(latLng.longitude));
+                latitude=latLng.latitude;
+                longitude=latLng.longitude;
+                Log.d("latLng.latitude",String.valueOf(latitude));
+                Log.d("latLng.longitude", String.valueOf(longitude));
             }
         });
     }
@@ -104,15 +143,12 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     }
     @Override
     public void onProviderDisabled(String provider) {
-
     }
     @Override
     public void onProviderEnabled(String provider) {
-
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
     @Override
     protected void onResume() {

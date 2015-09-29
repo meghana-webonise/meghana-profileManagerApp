@@ -23,6 +23,15 @@
        android:layout_centerInParent="true"
         android:src="@drawable/marker"
         />
+        <Button
+            style="@style/layoutStyle"
+            android:id="@+id/btnModeOfPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/popTitle"
+            android:textColor="@color/ColorText"
+            android:background="@drawable/location_selector"/>
     </RelativeLayout>
 
 </RelativeLayout>
