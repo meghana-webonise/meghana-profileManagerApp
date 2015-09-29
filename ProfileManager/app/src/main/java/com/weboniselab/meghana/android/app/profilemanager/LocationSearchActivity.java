@@ -1,8 +1,11 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,6 +23,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * Created by webonise on 21/9/15.
  */
@@ -33,6 +40,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     String[] items;
     AlertDialog alertDialog;
     DatabaseOperations databaseOperations;
+    String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +54,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseOperations.addDetailsToLocationTable(latitude,longitude,Constants.Radius_Of_Geofence,modeOfPhone);
+                databaseOperations.addDetailsToLocationTable(latitude,longitude,Constants.Radius_Of_Geofence,address,modeOfPhone);
                 onBackPressed();
             }
         });
@@ -129,12 +137,42 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 }
                 marker = googleMap.addMarker(options);
                 marker.setVisible(false);
-                latitude=latLng.latitude;
-                longitude=latLng.longitude;
-                Log.d("latLng.latitude",String.valueOf(latitude));
-                Log.d("latLng.longitude", String.valueOf(longitude));
+                latitude = latLng.latitude;
+                longitude = latLng.longitude;
+                /*Log.d("latLng.latitude", String.valueOf(latitude));
+                Log.d("latLng.longitude", String.valueOf(longitude));*/
+                StringBuffer addressOfSelectedPlace=getAddressOfSelectedPlace(latitude, longitude);
+                address=addressOfSelectedPlace.toString();
+                Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
             }
         });
+
+    }
+    //method to get address from the selected coordinates
+    public StringBuffer getAddressOfSelectedPlace(double latitude,double longitude){
+        StringBuffer fullAddress = null;
+        Geocoder  geocoder=new Geocoder(getApplicationContext());
+        if (geocoder.isPresent()) {
+            try {
+
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+                if(addresses != null && addresses.size()>0) {
+                    Address returnedAddress = addresses.get(0);
+                    StringBuffer stringBuffer = new StringBuffer("Address : ");
+                    for(int i=0; i<returnedAddress.getMaxAddressLineIndex(); i++) {
+                        stringBuffer.append(returnedAddress.getAddressLine(i)).append("\n");
+                    }
+                    Toast.makeText(LocationSearchActivity.this, stringBuffer, Toast.LENGTH_SHORT).show();
+                    fullAddress=stringBuffer;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+        }
+        return fullAddress;
     }
     @Override
     public void onLocationChanged(Location location) {

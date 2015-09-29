@@ -8,20 +8,23 @@ public class LocationModel {
     String modeOfPhone;
     double latitude,longitude;
     int radius;
+    String address;
 
     public LocationModel(){
         this.id=0;
         this.modeOfPhone="";
         this.latitude=0.0;
         this.longitude=0.0;
+        this.address="";
         this.radius=0;
     }
 
-    public LocationModel(int id, double latitude,double longitude,int radius, String modeOfPhone) {
+    public LocationModel(int id, double latitude,double longitude,int radius, String address,String modeOfPhone) {
         this.id = id;
         this.latitude=latitude;
         this.longitude=longitude;
         this.radius=radius;
+        this.address=address;
         this.modeOfPhone = modeOfPhone;
     }
 
@@ -63,5 +66,13 @@ public class LocationModel {
 
     public void setRadius(int radius) {
         this.radius = radius;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

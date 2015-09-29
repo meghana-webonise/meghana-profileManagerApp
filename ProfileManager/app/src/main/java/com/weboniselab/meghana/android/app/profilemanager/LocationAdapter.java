@@ -16,7 +16,7 @@ import java.util.List;
 public class LocationAdapter extends BaseAdapter {
 
     ListView listView;
-    TextView tvLatitude,tvLongitude,tvModeOfPhone,tvRadius;
+    TextView tvModeOfPhone,tvAddress;
     private Context context;
     DatabaseOperations databaseOperations;
     private List<LocationModel> items;
@@ -48,12 +48,8 @@ public class LocationAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_view_row_location, null);
         }
         listView=(ListView) convertView.findViewById(R.id.lvLocationSetByUser);
-        tvLatitude=(TextView) convertView.findViewById(R.id.tvLatitude);
-        tvLatitude.setText(String.valueOf(items.get(position).getLatitude()));
-        tvLongitude=(TextView) convertView.findViewById(R.id.tvLongitude);
-        tvLongitude.setText(String.valueOf(items.get(position).getLongitude()));
-        tvRadius=(TextView) convertView.findViewById(R.id.tvRadius);
-        tvRadius.setText(String.valueOf(items.get(position).getRadius()));
+        tvAddress=(TextView) convertView.findViewById(R.id.tvAddress);
+        tvAddress.setText(items.get(position).getAddress());
         tvModeOfPhone=(TextView) convertView.findViewById(R.id.tvModeOfPhone);
         tvModeOfPhone.setText(items.get(position).getModeOfPhone());
         return convertView;

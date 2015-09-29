@@ -31,7 +31,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
 
     public static final String createTableLocation=" CREATE TABLE " +Constants.TABLE_NAME_LOCATION+ " ( " +Constants.COLUMN_ID_LOCATION + " INTEGER PRIMARY KEY AUTOINCREMENT , "
             +Constants.COLUMN_LATITUDE+ " DOUBLE , " +Constants.COLUMN_LONGITUDE+ " DOUBLE , "
-            +Constants.COLUMN_RADIUS + " INTEGER , " +Constants.COLUMN_MODE_OF_PHONE_LOCATION + " TEXT ) ";
+            +Constants.COLUMN_RADIUS + " INTEGER , " +Constants.COLUMN_ADDRESS + " TEXT ," +Constants.COLUMN_MODE_OF_PHONE_LOCATION + " TEXT ) ";
 
     public DatabaseOperations(Context context){
         super(context,Constants.DATABASE_NAME,null,DB_VERSION);
@@ -160,12 +160,13 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         return details;
     }
     //method to add details to location table
-    public void addDetailsToLocationTable(double latitude,double longitude,int radius,String modeOfPhone){
+    public void addDetailsToLocationTable(double latitude,double longitude,int radius,String address,String modeOfPhone){
         SQLiteDatabase database=this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(Constants.COLUMN_LATITUDE,latitude);
         values.put(Constants.COLUMN_LONGITUDE,longitude);
         values.put(Constants.COLUMN_RADIUS,radius);
+        values.put(Constants.COLUMN_ADDRESS,address);
         values.put(Constants.COLUMN_MODE_OF_PHONE_LOCATION,modeOfPhone);
         database.insert(Constants.TABLE_NAME_LOCATION, null, values);
         database.close();
@@ -182,6 +183,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
                 locationModel.setLatitude(cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_LATITUDE)));
                 locationModel.setLongitude(cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_LONGITUDE)));
                 locationModel.setRadius(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_RADIUS)));
+                locationModel.setAddress(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_ADDRESS)));
                 locationModel.setModeOfPhone(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_MODE_OF_PHONE_LOCATION)));
                 details.add(locationModel);
             }while (cursor.moveToNext());
