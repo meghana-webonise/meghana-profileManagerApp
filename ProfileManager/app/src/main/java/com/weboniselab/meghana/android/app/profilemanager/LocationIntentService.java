@@ -42,48 +42,46 @@ public class LocationIntentService extends IntentService {
         Log.v(getClass().getName(), "%%%%%%%%%%%%%%%%%%%%");
         return super.onStartCommand(intent,flags,startId);
     }
-
     @Override
     protected void onHandleIntent(Intent intent) {
+        databaseOperations=new DatabaseOperations(this);
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             Log.d(getClass().getName(),"Error");
             return;
         }
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
-
-
-
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-                geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-
-            // Get the geofences that were triggered. A single event can trigger multiple geofences.
+        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-
-            // Get the transition details as a String.
             String geofenceTransitionDetails = getGeofenceTransitionDetails(
                     this,
                     geofenceTransition,
                     triggeringGeofences
             );
-
-            // Send notification and log the transition details.
             sendNotification(geofenceTransitionDetails);
             Log.i(getClass().getName(), geofenceTransitionDetails);
-        } else {
-            // Log the error.
-            Log.e(getClass().getName(), "Geofence transition error");
+            Log.d(getClass().getName(), String.valueOf(triggeringGeofences));
+
+           /* for (Geofence geofence : triggeringGeofences) {
+                if (geofence.getRequestId().equals(model.getId())) {
+                    changePhoneMode();
+                }
+            }
+        }else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
+            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
-        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        databaseOperations=new DatabaseOperations(this);
+
+        else {
+            Log.e(getClass().getName(), "Geofence transition error");
+        }*/
+        /*audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
         locationModelList=databaseOperations.getAllDetailsFromLocationTable();
         for (int i=0;i<locationModelList.size();i++) {
             LocationModel locationModel = locationModelList.get(i);
             modeOfPhone=locationModel.getModeOfPhone();
-        }
-        changePhoneMode();
-    }
-
+        }*/
+    }}
     public void changePhoneMode(){
         if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())){
             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -96,74 +94,63 @@ public class LocationIntentService extends IntentService {
         {
             audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
         }
-        else
-            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
     }
-
-
-
     private String getGeofenceTransitionDetails(
             Context context,
             int geofenceTransition,
             List<Geofence> triggeringGeofences) {
-
         String geofenceTransitionString = getTransitionString(geofenceTransition);
-
-        // Get the Ids of each geofence that was triggered.
         ArrayList triggeringGeofencesIdsList = new ArrayList();
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        locationModelList=databaseOperations.getAllDetailsFromLocationTable();
+        for (int i=0;i<locationModelList.size();i++) {
+            LocationModel locationModel = locationModelList.get(i);
+            modeOfPhone=locationModel.getModeOfPhone();
+        }
         for (Geofence geofence : triggeringGeofences) {
             triggeringGeofencesIdsList.add(geofence.getRequestId());
+            for (LocationModel model : databaseOperations.getAllDetailsFromLocationTable()) {
+                Log.d("$$$$$$$$$",geofence.getRequestId());
+                Log.d("***************", String.valueOf(model.getId()));
+
+                    if ((geofence.getRequestId().toString()).equals(String.valueOf(model.getId()))) {
+                        Log.i("^^^^^^^", ")))))");
+                        changePhoneMode();
+                        Log.d(getClass().getName(), "&&&" + String.valueOf(model.getId()));
+                    }
+
+                else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                }
+                else {
+                    Log.e(getClass().getName(), "Geofence transition error");
+                }
+            }
         }
         String triggeringGeofencesIdsString = TextUtils.join(", ", triggeringGeofencesIdsList);
 
         return geofenceTransitionString + ": " + triggeringGeofencesIdsString;
     }
-
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void sendNotification(String notificationDetails) {
-        // Create an explicit content Intent that starts the main Activity.
         Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-
-        // Construct a task stack.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-
-        // Add the main Activity to the task stack as the parent.
         stackBuilder.addParentStack(MainActivity.class);
-
-        // Push the content Intent onto the stack.
         stackBuilder.addNextIntent(notificationIntent);
-
-        // Get a PendingIntent containing the entire back stack.
         PendingIntent notificationPendingIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Get a notification builder that's compatible with platform versions >= 4
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-
-        // Define the notification settings.
         builder.setSmallIcon(R.drawable.marker)
-                // In a real app, you may want to use a library like Volley
-                // to decode the Bitmap.
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),
                         R.drawable.marker))
-                .setColor(Color.RED)
-                .setContentTitle(notificationDetails)
+                .setContentTitle("Profile Manager")
                 .setContentText("Click to return to app")
                 .setContentIntent(notificationPendingIntent);
-
-        // Dismiss notification once the user touches it.
         builder.setAutoCancel(true);
-
-        // Get an instance of the Notification manager
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Issue the notification
         mNotificationManager.notify(0, builder.build());
     }
-
-
     private String getTransitionString(int transitionType) {
         switch (transitionType) {
             case Geofence.GEOFENCE_TRANSITION_ENTER:
@@ -174,6 +161,4 @@ public class LocationIntentService extends IntentService {
                 return "Unknown geofence";
         }
     }
-
-
 }

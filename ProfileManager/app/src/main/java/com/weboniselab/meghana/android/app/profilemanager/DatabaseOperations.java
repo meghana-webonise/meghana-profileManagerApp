@@ -180,6 +180,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         try {
             if (cursor.moveToFirst()) do{
                 LocationModel locationModel=new LocationModel();
+                locationModel.setId(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_ID_LOCATION)));
                 locationModel.setLatitude(cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_LATITUDE)));
                 locationModel.setLongitude(cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_LONGITUDE)));
                 locationModel.setRadius(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_RADIUS)));

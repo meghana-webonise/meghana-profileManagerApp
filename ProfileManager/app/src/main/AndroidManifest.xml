@@ -71,10 +71,12 @@
         <activity android:name=".SetMovementActivity"></activity>
 
         <service android:name=".MovementRecognitionService"></service>
-        <service android:name=".MovementRecognitionIntentService"></service>
+        <service android:name=".MovementRecognitionIntentService"
+            android:exported="true"></service>
         <service android:name=".TimeService"></service>
         <service android:name=".LocationService"></service>
-        <service android:name=".LocationIntentService"></service>
+        <service android:name=".LocationIntentService"
+            android:exported="true"></service>
 
     </application>
 

@@ -36,14 +36,10 @@ public class LocationService extends Service implements
     public IBinder onBind(Intent intent) {
         return null;
     }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
-
-
-
     @Override
     public void onCreate() {
         databaseOperations=new DatabaseOperations(getApplicationContext());
@@ -57,8 +53,6 @@ public class LocationService extends Service implements
             mGoogleApiClient.connect();
         }
     }
-
-
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -66,7 +60,6 @@ public class LocationService extends Service implements
                 .addApi(LocationServices.API)
                 .build();
     }
-
     public void populateGeofenceList(){
         for (LocationModel entry : databaseOperations.getAllDetailsFromLocationTable()){
             geofenceList.add(new Geofence.Builder()
@@ -76,10 +69,12 @@ public class LocationService extends Service implements
                             entry.getLongitude(),
                             entry.getRadius()
                     )
+
                     .setExpirationDuration(Constants.GEOFENCE_EXPIRATION_IN_MILLISECONDS)
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                             Geofence.GEOFENCE_TRANSITION_EXIT)
                     .build());
+            Log.d(getClass().getName(), String.valueOf(entry.getId()));
         }
     }
 
@@ -89,13 +84,10 @@ public class LocationService extends Service implements
         builder.addGeofences(geofenceList);
         return builder.build();
     }
-
-
     private void logSecurityException(SecurityException securityException) {
         Log.e(getClass().getName(), "Invalid location permission. " +
                 "You need to use ACCESS_FINE_LOCATION with geofences", securityException);
     }
-
     private PendingIntent getGeofencePendingIntent() {
         if (geofencePendingIntent != null) {
             return geofencePendingIntent;
@@ -103,9 +95,6 @@ public class LocationService extends Service implements
         Intent intent = new Intent(this, LocationIntentService.class);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
-
-
-
     @Override
     public void onConnected(Bundle bundle) {
         if (mGoogleApiClient.isConnected()){
@@ -114,7 +103,6 @@ public class LocationService extends Service implements
         }
         Log.d(getClass().getName(),"Connected to API");
     }
-
     public void addGeofence(){
         try {
             LocationServices.GeofencingApi.addGeofences(
@@ -131,13 +119,11 @@ public class LocationService extends Service implements
             logSecurityException(securityException);
         }
     }
-
     @Override
     public void onConnectionSuspended(int i) {
         Log.d(getClass().getName(),"Connection suspended");
         mGoogleApiClient.connect();
     }
-
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d(getClass().getName(),"Connection Failed");
@@ -145,7 +131,6 @@ public class LocationService extends Service implements
             mGoogleApiClient.connect();
         }
     }
-
     @Override
     public void onResult(Status status) {
         if (status.isSuccess()) {
