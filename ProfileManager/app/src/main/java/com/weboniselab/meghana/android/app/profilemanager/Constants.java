@@ -3,8 +3,10 @@ package com.weboniselab.meghana.android.app.profilemanager;
 public class Constants {
     public static final String Format_Of_Time="HH:mm";
     public static final int Radius_Of_Geofence=300;
+    public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS= 12 * 60* 60 * 1000;
 
-    public static final String DATABASE_NAME="newes";
+
+    public static final String DATABASE_NAME="neh";
     public static final String TABLE_NAME_TIME="timeSetByUser";
     public static final String COLUMN_ID_TIME ="id";
     public static final String COLUMN_FROM_TIME="fromTime";

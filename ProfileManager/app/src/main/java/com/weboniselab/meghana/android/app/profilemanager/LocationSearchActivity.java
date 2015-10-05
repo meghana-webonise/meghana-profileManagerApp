@@ -139,8 +139,8 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 marker.setVisible(false);
                 latitude = latLng.latitude;
                 longitude = latLng.longitude;
-                /*Log.d("latLng.latitude", String.valueOf(latitude));
-                Log.d("latLng.longitude", String.valueOf(longitude));*/
+                Log.d("latLng.latitude", String.valueOf(latitude));
+                Log.d("latLng.longitude", String.valueOf(longitude));
                 StringBuffer addressOfSelectedPlace=getAddressOfSelectedPlace(latitude, longitude);
                 address=addressOfSelectedPlace.toString();
                 Log.d("Address of place", String.valueOf(addressOfSelectedPlace));

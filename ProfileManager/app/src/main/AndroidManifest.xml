@@ -74,6 +74,7 @@
         <service android:name=".MovementRecognitionIntentService"></service>
         <service android:name=".TimeService"></service>
         <service android:name=".LocationService"></service>
+        <service android:name=".LocationIntentService"></service>
 
     </application>
 
