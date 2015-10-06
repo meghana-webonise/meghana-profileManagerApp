@@ -6,7 +6,7 @@ public class Constants {
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS= 12 * 60* 60 * 1000;
 
 
-    public static final String DATABASE_NAME="ggorrupjkirpfgg";
+    public static final String DATABASE_NAME="ggklorrupjkirpfgg";
     public static final String TABLE_NAME_TIME="timeSetByUser";
     public static final String COLUMN_ID_TIME ="id";
     public static final String COLUMN_FROM_TIME="fromTime";

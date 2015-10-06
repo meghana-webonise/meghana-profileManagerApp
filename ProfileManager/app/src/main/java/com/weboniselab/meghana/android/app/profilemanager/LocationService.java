@@ -94,6 +94,7 @@ public class LocationService extends Service implements
     public void onConnected(Bundle bundle) {
         if (mGoogleApiClient.isConnected()){
             Toast.makeText(LocationService.this, "Connected to Api", Toast.LENGTH_SHORT).show();
+            removeGeofence();
             addGeofence();
         }
         Log.d(getClass().getName(),"Connected to API");
@@ -107,6 +108,15 @@ public class LocationService extends Service implements
             ).setResultCallback(this);
         } catch (SecurityException securityException) {
             logSecurityException(securityException);
+        }
+    }
+
+    public void removeGeofence(){
+        try {
+            LocationServices.GeofencingApi.removeGeofences(mGoogleApiClient,
+                    getGeofencePendingIntent()).setResultCallback(this);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
     @Override

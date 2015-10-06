@@ -32,18 +32,14 @@ public class LocationIntentService extends IntentService {
         Silent,Vibration,Loud
     }
     private AudioManager audioManager;
-
-
     public LocationIntentService() {
         super("");
     }
-
     @Override
     public void onCreate() {
         super.onCreate();
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
-
     @Override
     protected void onHandleIntent(Intent intent) {
         databaseOperations=new DatabaseOperations(this);
@@ -79,6 +75,10 @@ public class LocationIntentService extends IntentService {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+
+        for(Geofence geofence : triggeringGeofences){
+            triggeringGeofencesIdsList.remove(geofence.getRequestId());
         }
     }
     public void changePhoneMode(String modeOfPhone){

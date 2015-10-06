@@ -193,7 +193,7 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         }
         return details;
     }
-
+    //method to delete a row from location table
     public void deleteFromLocationTable(int id){
         SQLiteDatabase db=this.getWritableDatabase();
         db.delete(Constants.TABLE_NAME_LOCATION,Constants.COLUMN_ID_LOCATION + "=" +id,null);
