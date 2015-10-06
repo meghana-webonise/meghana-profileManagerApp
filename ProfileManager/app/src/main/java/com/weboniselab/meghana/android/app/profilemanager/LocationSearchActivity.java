@@ -141,9 +141,14 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 longitude = latLng.longitude;
                 Log.d("latLng.latitude", String.valueOf(latitude));
                 Log.d("latLng.longitude", String.valueOf(longitude));
-                StringBuffer addressOfSelectedPlace=getAddressOfSelectedPlace(latitude, longitude);
-                address=addressOfSelectedPlace.toString();
-                Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
+                try {
+                    StringBuffer addressOfSelectedPlace = getAddressOfSelectedPlace(latitude, longitude);
+                    address = addressOfSelectedPlace.toString();
+                    Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
+                }catch (Exception e){
+                    Toast.makeText(LocationSearchActivity.this, "Enable Wifi", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
             }
         });
 

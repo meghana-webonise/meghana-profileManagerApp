@@ -7,18 +7,13 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,63 +21,67 @@ import java.util.List;
  * Created by webonise on 5/10/15.
  */
 public class LocationIntentService extends IntentService {
-    private AudioManager audioManager;
+
+    private NotificationManager notificationManager;
+    DatabaseOperations databaseOperations;
     String modeOfPhone;
+    int id;
+    List<Geofence> triggeringGeofences;
+    ArrayList triggeringGeofencesIdsList = new ArrayList();
     enum ModeOfPhone{
         Silent,Vibration,Loud
     }
-    DatabaseOperations databaseOperations;
-    List<LocationModel> locationModelList;
+    private AudioManager audioManager;
+
+
     public LocationIntentService() {
         super("");
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.v(getClass().getName(), "%%%%%%%%%%%%%%%%%%%%");
-        return super.onStartCommand(intent,flags,startId);
+    public void onCreate() {
+        super.onCreate();
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
+
     @Override
     protected void onHandleIntent(Intent intent) {
         databaseOperations=new DatabaseOperations(this);
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             Log.d(getClass().getName(),"Error");
             return;
         }
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
-        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-            String geofenceTransitionDetails = getGeofenceTransitionDetails(
-                    this,
-                    geofenceTransition,
-                    triggeringGeofences
-            );
-            sendNotification(geofenceTransitionDetails);
-            Log.i(getClass().getName(), geofenceTransitionDetails);
-            Log.d(getClass().getName(), String.valueOf(triggeringGeofences));
-
-           /* for (Geofence geofence : triggeringGeofences) {
-                if (geofence.getRequestId().equals(model.getId())) {
-                    changePhoneMode();
+        if (geofenceTransition==Geofence.GEOFENCE_TRANSITION_ENTER){
+            triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+            for (Geofence geofence : triggeringGeofences) {
+                triggeringGeofencesIdsList.add(geofence.getRequestId());
+                for (LocationModel model : databaseOperations.getAllDetailsFromLocationTable()) {
+                    Log.d("$$$$$$$$$",geofence.getRequestId());
+                    Log.d("***************", String.valueOf(model.getId()));
+                    if ((geofence.getRequestId().toString()).equals(String.valueOf(model.getId()))) {
+                        Log.i("^^^^^^^", ")))))");
+                        modeOfPhone=model.getModeOfPhone();
+                        Log.d("(((((((((((((((((((",modeOfPhone);
+                        sendNotification(model.getId(),model.getAddress());
+                        changePhoneMode(modeOfPhone);
+                        Log.d(getClass().getName(), "&&&" + String.valueOf(model.getId()));
+                    }
                 }
             }
-        }else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
-            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
-
-        else {
-            Log.e(getClass().getName(), "Geofence transition error");
-        }*/
-        /*audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
-        locationModelList=databaseOperations.getAllDetailsFromLocationTable();
-        for (int i=0;i<locationModelList.size();i++) {
-            LocationModel locationModel = locationModelList.get(i);
-            modeOfPhone=locationModel.getModeOfPhone();
-        }*/
-    }}
-    public void changePhoneMode(){
+        else if (geofenceTransition==Geofence.GEOFENCE_TRANSITION_EXIT){
+            try{
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                notificationManager.cancel(id);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    public void changePhoneMode(String modeOfPhone){
         if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())){
             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
         }
@@ -95,70 +94,21 @@ public class LocationIntentService extends IntentService {
             audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
         }
     }
-    private String getGeofenceTransitionDetails(
-            Context context,
-            int geofenceTransition,
-            List<Geofence> triggeringGeofences) {
-        String geofenceTransitionString = getTransitionString(geofenceTransition);
-        ArrayList triggeringGeofencesIdsList = new ArrayList();
-        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        locationModelList=databaseOperations.getAllDetailsFromLocationTable();
-        for (int i=0;i<locationModelList.size();i++) {
-            LocationModel locationModel = locationModelList.get(i);
-            modeOfPhone=locationModel.getModeOfPhone();
-        }
-        for (Geofence geofence : triggeringGeofences) {
-            triggeringGeofencesIdsList.add(geofence.getRequestId());
-            for (LocationModel model : databaseOperations.getAllDetailsFromLocationTable()) {
-                Log.d("$$$$$$$$$",geofence.getRequestId());
-                Log.d("***************", String.valueOf(model.getId()));
-
-                    if ((geofence.getRequestId().toString()).equals(String.valueOf(model.getId()))) {
-                        Log.i("^^^^^^^", ")))))");
-                        changePhoneMode();
-                        Log.d(getClass().getName(), "&&&" + String.valueOf(model.getId()));
-                    }
-
-                else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                }
-                else {
-                    Log.e(getClass().getName(), "Geofence transition error");
-                }
-            }
-        }
-        String triggeringGeofencesIdsString = TextUtils.join(", ", triggeringGeofencesIdsList);
-
-        return geofenceTransitionString + ": " + triggeringGeofencesIdsString;
-    }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void sendNotification(String notificationDetails) {
+    private void sendNotification(int id, String address){
+        Log.d(getClass().getName(),"Sending notification");
+        Log.d("&&&&&&&&&", String.valueOf(id));
+        Log.d("**********",address);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle("Profile Manager")
+                .setContentText(address).setSmallIcon(R.drawable.marker)
+                .setAutoCancel(true);
         Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
-        PendingIntent notificationPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.marker)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                        R.drawable.marker))
-                .setContentTitle("Profile Manager")
-                .setContentText("Click to return to app")
-                .setContentIntent(notificationPendingIntent);
-        builder.setAutoCancel(true);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, builder.build());
-    }
-    private String getTransitionString(int transitionType) {
-        switch (transitionType) {
-            case Geofence.GEOFENCE_TRANSITION_ENTER:
-                return "Transtition entered";
-            case Geofence.GEOFENCE_TRANSITION_EXIT:
-                return "Transition exited";
-            default:
-                return "Unknown geofence";
-        }
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        notificationManager.notify(id, builder.build());
     }
 }

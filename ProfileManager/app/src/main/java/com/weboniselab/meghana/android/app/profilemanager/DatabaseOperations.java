@@ -193,4 +193,10 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         }
         return details;
     }
+
+    public void deleteFromLocationTable(int id){
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.delete(Constants.TABLE_NAME_LOCATION,Constants.COLUMN_ID_LOCATION + "=" +id,null);
+        db.close();
+    }
 }

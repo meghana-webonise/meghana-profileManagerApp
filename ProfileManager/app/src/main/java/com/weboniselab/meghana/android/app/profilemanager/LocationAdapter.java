@@ -1,10 +1,12 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ public class LocationAdapter extends BaseAdapter {
     private Context context;
     DatabaseOperations databaseOperations;
     private List<LocationModel> items;
+    Button btnDelete;
 
     public LocationAdapter(Context context,List<LocationModel> items){
         this.items=items;
@@ -42,7 +45,7 @@ public class LocationAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_view_row_location, null);
         }
@@ -51,6 +54,20 @@ public class LocationAdapter extends BaseAdapter {
         tvAddress.setText(items.get(position).getAddress());
         tvModeOfPhone=(TextView) convertView.findViewById(R.id.tvModeOfPhone);
         tvModeOfPhone.setText(items.get(position).getModeOfPhone());
+        btnDelete=(Button)convertView.findViewById(R.id.btnDelete);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            int ID = items.get(position).getId();
+            @Override
+            public void onClick(View v) {
+                String id = String.valueOf(ID);
+                Log.d(getClass().getName(), id);
+                databaseOperations.deleteFromLocationTable(ID);
+                items.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
         return convertView;
     }
 }
