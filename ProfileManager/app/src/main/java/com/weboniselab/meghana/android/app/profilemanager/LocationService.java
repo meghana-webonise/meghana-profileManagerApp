@@ -94,7 +94,7 @@ public class LocationService extends Service implements
     public void onConnected(Bundle bundle) {
         if (mGoogleApiClient.isConnected()){
             Toast.makeText(LocationService.this, "Connected to Api", Toast.LENGTH_SHORT).show();
-            removeGeofence();
+           // removeGeofence();
             addGeofence();
         }
         Log.d(getClass().getName(),"Connected to API");

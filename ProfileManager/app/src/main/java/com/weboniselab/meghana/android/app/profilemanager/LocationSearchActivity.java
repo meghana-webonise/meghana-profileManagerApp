@@ -145,19 +145,14 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 Log.d("latLng.latitude", String.valueOf(latitude));
                 Log.d("latLng.longitude", String.valueOf(longitude));
 
-                ConnectivityManager connectivityManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
                     StringBuffer addressOfSelectedPlace = getAddressOfSelectedPlace(latitude, longitude);
-                boolean isConnected = networkInfo != null &&
-                        networkInfo.isConnectedOrConnecting();
-                if (isConnected) {
+
                     address = addressOfSelectedPlace.toString();
                     Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
                 }
-                else {
-                    Toast.makeText(LocationSearchActivity.this, "Connect to Wifi", Toast.LENGTH_SHORT).show();
-                }
-            }
+
+
         });
 
     }
