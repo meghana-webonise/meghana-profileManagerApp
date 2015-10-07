@@ -58,6 +58,9 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (modeOfPhone==null){
+                    modeOfPhone=items[2];
+                }
                 databaseOperations.addDetailsToLocationTable(latitude, longitude, Constants.Radius_Of_Geofence, address, modeOfPhone);
                 startService(locationService);
                 onBackPressed();

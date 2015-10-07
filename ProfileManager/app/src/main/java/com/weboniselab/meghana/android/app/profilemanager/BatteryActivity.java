@@ -17,34 +17,29 @@ public class BatteryActivity extends AppCompatActivity implements View.OnClickLi
     private android.support.v7.widget.Toolbar toolbar;
     Intent setBatteryActivity;
     DatabaseOperations databaseOperations;
-    private ListView listView;
-    private BatteryAdapter batteryAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.battery_activity);
         initialise();
+    }
+    public void initialise(){
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-    }
-
-    public void initialise(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         tvVeryLowBattery=(Button) findViewById(R.id.tvVeryLowBattery);
         tvVeryLowBattery.setOnClickListener(this);
         tvLowBattery=(Button) findViewById(R.id.tvLowBattery);
         tvLowBattery.setOnClickListener(this);
         tvNormalBattery=(Button) findViewById(R.id.tvNormalBattery);
         tvNormalBattery.setOnClickListener(this);
-        /*databaseOperations=new DatabaseOperations(this);
-        listView=(ListView) findViewById(R.id.lvBatterySetByUser);*/
     }
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        batteryAdapter=new BatteryAdapter(BatteryActivity.this,databaseOperations.getAllDetailsFromBatteryTable());
-        listView.setAdapter(batteryAdapter);
-    }*/
 
     @Override
     public void onClick(View view) {

@@ -32,11 +32,18 @@ public class SetMovementActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_movement_activity);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
         initialise();
     }
     public void initialise() {
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btnWalk = (Button) findViewById(R.id.btnWalk);
         btnWalk.setOnClickListener(this);
         btnDrive = (Button) findViewById(R.id.btnDrive);

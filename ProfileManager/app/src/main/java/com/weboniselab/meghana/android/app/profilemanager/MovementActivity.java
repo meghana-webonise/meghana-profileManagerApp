@@ -25,9 +25,6 @@ public class MovementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movement_activity);
         initialise();
-
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -48,6 +45,15 @@ public class MovementActivity extends AppCompatActivity {
     }
 
     public void initialise() {
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         listView = (ListView) findViewById(R.id.lvMovementSetByUser);
         databaseOperations = new DatabaseOperations(this);
 

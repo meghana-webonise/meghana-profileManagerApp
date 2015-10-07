@@ -108,21 +108,6 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 }
 
             }
-
-           /* try {
-                split(context, modeOfNetwork);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }*/
-
         }
         if ((level >15 && level<30) && TextUtils.equals(batteryLevel,"2")) {
             if (TextUtils.equals(modeOfPhone, ModeOfPhone.Silent.toString())) {
@@ -178,19 +163,6 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 }
 
             }
-            /*try {
-                split(context, modeOfNetwork);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }*/
         }
         if (level>30 && TextUtils.equals(batteryLevel,"3")) {
             if (TextUtils.equals(modeOfPhone, ModeOfPhone.Silent.toString())) {
@@ -245,19 +217,6 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 }
 
             }
-           /* try {
-                split(context, modeOfNetwork);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }*/
         }
     }
     public void getModeOfNetwork(Context context,String modeOfNetwork) throws ClassNotFoundException,
@@ -307,7 +266,5 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
     public void enableFlightMode(Context context){
         Settings.System.putInt(context.getContentResolver(),
                 Settings.Global.AIRPLANE_MODE_ON, isAirplaneEnabled ? 0 : 1);
-        /*if (isAirplaneEnabled){
-        }*/
     }
 }

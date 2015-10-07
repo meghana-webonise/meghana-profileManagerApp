@@ -10,7 +10,7 @@ import android.os.Bundle;
 public class SplashScreenActivity extends Activity {
 
     protected boolean active = true;
-    protected int splashTime = 3000;
+    protected int splashTime = 1000;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

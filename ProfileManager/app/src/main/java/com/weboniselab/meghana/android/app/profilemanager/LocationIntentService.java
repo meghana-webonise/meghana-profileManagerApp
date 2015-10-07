@@ -55,15 +55,15 @@ public class LocationIntentService extends IntentService {
             for (Geofence geofence : triggeringGeofences) {
                 triggeringGeofencesIdsList.add(geofence.getRequestId());
                 for (LocationModel model : databaseOperations.getAllDetailsFromLocationTable()) {
-                    Log.d("$$$$$$$$$",geofence.getRequestId());
-                    Log.d("***************", String.valueOf(model.getId()));
+                    //Log.d("$$$$$$$$$",geofence.getRequestId());
+                   // Log.d("***************", String.valueOf(model.getId()));
                     if ((geofence.getRequestId().toString()).equals(String.valueOf(model.getId()))) {
-                        Log.i("^^^^^^^", ")))))");
+                       // Log.i("^^^^^^^", ")))))");
                         modeOfPhone=model.getModeOfPhone();
-                        Log.d("(((((((((((((((((((",modeOfPhone);
+                       // Log.d("(((((((((((((((((((",modeOfPhone);
                         sendNotification(model.getId(),model.getAddress());
                         changePhoneMode(modeOfPhone);
-                        Log.d(getClass().getName(), "&&&" + String.valueOf(model.getId()));
+                       // Log.d(getClass().getName(), "&&&" + String.valueOf(model.getId()));
                     }
                 }
             }

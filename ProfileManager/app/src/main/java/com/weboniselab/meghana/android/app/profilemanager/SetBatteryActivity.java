@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -31,14 +33,20 @@ public class SetBatteryActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_battery_activity);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
         intent=getIntent();
         batteryLevel=intent.getStringExtra("battery Level");
-        Toast.makeText(SetBatteryActivity.this, ""+batteryLevel, Toast.LENGTH_SHORT).show();
         initialise();
     }
     public void initialise(){
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btnphoneMode=(Button) findViewById(R.id.btnPhoneMode);
         btnphoneMode.setOnClickListener(this);
         btnNetworkConnectivity=(Button) findViewById(R.id.btnNetworkConnectivity);
@@ -59,6 +67,14 @@ public class SetBatteryActivity extends AppCompatActivity implements View.OnClic
                 showNetworkConnectivityPopUp();
                 break;
             case R.id.btnDone:
+                if (modeOfPhone==null){
+                    modeOfPhone=String.valueOf(-1);
+                }
+                if (modeOfNetwork==null){
+                    modeOfNetwork= String.valueOf(-1);
+                }
+                Log.d(getClass().getName(),modeOfPhone);
+                Log.d(getClass().getName(),modeOfNetwork);
                 databaseOperations.insertOrUpdateToDatabaseBatteryTable(batteryLevel, modeOfPhone, modeOfNetwork);
                 Intent intent=new Intent(this,BatteryService.class);
                 startService(intent);
@@ -74,15 +90,12 @@ public class SetBatteryActivity extends AppCompatActivity implements View.OnClic
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
-                        Toast.makeText(SetBatteryActivity.this, items[0], Toast.LENGTH_SHORT).show();
                         modeOfPhone = items[0];
                         break;
                     case 1:
-                        Toast.makeText(SetBatteryActivity.this, items[1], Toast.LENGTH_SHORT).show();
                         modeOfPhone = items[1];
                         break;
                     case 2:
-                        Toast.makeText(SetBatteryActivity.this, items[2], Toast.LENGTH_SHORT).show();
                         modeOfPhone = items[2];
                         break;
                 }
@@ -100,13 +113,10 @@ public class SetBatteryActivity extends AppCompatActivity implements View.OnClic
            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                switch (which) {
                    case 0:
-                       Toast.makeText(SetBatteryActivity.this, "" + networkMode[which], Toast.LENGTH_SHORT).show();
                        break;
                    case 1:
-                       Toast.makeText(SetBatteryActivity.this, "" + networkMode[which], Toast.LENGTH_SHORT).show();
                        break;
                    case 2:
-                       Toast.makeText(SetBatteryActivity.this, "" + networkMode[which], Toast.LENGTH_SHORT).show();
                        break;
                }
                if (isChecked) {
@@ -114,16 +124,15 @@ public class SetBatteryActivity extends AppCompatActivity implements View.OnClic
                } else if (selectedItemIndexList.contains(which)) {
                    selectedItemIndexList.remove(Integer.valueOf(which));
                }
-               Toast.makeText(SetBatteryActivity.this, "" + selectedItemIndexList, Toast.LENGTH_SHORT).show();
            }
        });
         builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(SetBatteryActivity.this, "New" + selectedItemIndexList, Toast.LENGTH_SHORT).show();
                 modeOfNetwork= TextUtils.join(getResources().getString(R.string.separator),selectedItemIndexList);
-                Log.d(getClass().getName(),modeOfNetwork);
+                Log.d(getClass().getName(), modeOfNetwork);
                 alertDialog1.dismiss();
+                btnNetworkConnectivity.setText(modeOfNetwork);
             }
         });
         builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {

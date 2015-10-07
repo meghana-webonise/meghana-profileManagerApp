@@ -25,7 +25,7 @@
         android:text="@string/tvVeryLowBattery"
         android:layout_marginBottom="@dimen/bottomMargin"
         android:background="@drawable/battery_selector"
-        android:textColor="@color/ColorText"/>
+        android:textColor="@color/ColorText" />
 
     <Button
         style="@style/layoutStyle"

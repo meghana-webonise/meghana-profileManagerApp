@@ -38,8 +38,6 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_timer_activity);
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
         initialise();
     }
     @Override
@@ -161,6 +159,15 @@ public class SetTimerActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     public void initialise(){
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         databaseOperations=new DatabaseOperations(this);
         timePickerFragment=new TimePickerFragment();
         btnFromTime = (Button) findViewById(R.id.btnFromTime);
