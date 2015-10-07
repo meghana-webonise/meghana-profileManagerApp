@@ -144,8 +144,11 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 longitude = latLng.longitude;
                 Log.d("latLng.latitude", String.valueOf(latitude));
                 Log.d("latLng.longitude", String.valueOf(longitude));
+                StringBuffer addressOfSelectedPlace = getAddressOfSelectedPlace(latitude, longitude);
+                address = addressOfSelectedPlace.toString();
+                Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
+                /*ConnectivityManager connectivityManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                ConnectivityManager connectivityManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                     StringBuffer addressOfSelectedPlace = getAddressOfSelectedPlace(latitude, longitude);
                 boolean isConnected = networkInfo != null &&
@@ -156,7 +159,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 }
                 else {
                     Toast.makeText(LocationSearchActivity.this, "Connect to Wifi", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 

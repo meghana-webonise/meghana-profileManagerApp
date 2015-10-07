@@ -3,6 +3,7 @@ package com.weboniselab.meghana.android.app.profilemanager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ public class LocationService extends Service implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>{
 
     protected GoogleApiClient mGoogleApiClient;
+    private final String BORADCAST_TAG = "com.webo.app";
     protected ArrayList<Geofence> mGeofenceList;
     private boolean mGeofencesAdded;
     private PendingIntent geofencePendingIntent;
@@ -47,8 +49,14 @@ public class LocationService extends Service implements
 
         if (!mGoogleApiClient.isConnected()) {
             Toast.makeText(this, " not Connected", Toast.LENGTH_SHORT).show();
+            buildGoogleApiClient();
             mGoogleApiClient.connect();
         }
+
+
+
+
+
     }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -87,7 +95,7 @@ public class LocationService extends Service implements
         if (geofencePendingIntent != null) {
             return geofencePendingIntent;
         }
-        Intent intent = new Intent(this, LocationIntentService.class);
+        Intent intent = new Intent(this, LocationBroadcastReceiver.class);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
     @Override
@@ -109,6 +117,17 @@ public class LocationService extends Service implements
         } catch (SecurityException securityException) {
             logSecurityException(securityException);
         }
+        
+        registerBroadCastReceiver();
+    }
+
+    private void registerBroadCastReceiver() {
+        LocationBroadcastReceiver broadcastReceiver = new LocationBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter(BORADCAST_TAG);
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(broadcastReceiver, intentFilter);
+        Intent intent =  new Intent(BORADCAST_TAG);
+        sendBroadcast(intent);
     }
 
     public void removeGeofence(){

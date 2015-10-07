@@ -75,8 +75,8 @@
             android:exported="true"></service>
         <service android:name=".TimeService"></service>
         <service android:name=".LocationService"></service>
-        <service android:name=".LocationIntentService"
-            android:exported="true"></service>
+        <receiver android:name=".LocationBroadcastReceiver"
+            ></receiver>
 
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
 

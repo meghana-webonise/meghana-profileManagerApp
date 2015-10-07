@@ -5,6 +5,7 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * Created by webonise on 5/10/15.
  */
-public class LocationIntentService extends IntentService {
+public class LocationBroadcastReceiver extends BroadcastReceiver {
 
     private NotificationManager notificationManager;
     DatabaseOperations databaseOperations;
@@ -32,18 +33,21 @@ public class LocationIntentService extends IntentService {
         Silent,Vibration,Loud
     }
     private AudioManager audioManager;
-    public LocationIntentService() {
-        super("");
+    private Context mContext;
+
+    public LocationBroadcastReceiver() {
     }
+
     @Override
-    public void onCreate() {
-        super.onCreate();
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    }
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        databaseOperations=new DatabaseOperations(this);
-        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    public void onReceive(Context context, Intent intent) {
+        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        databaseOperations=new DatabaseOperations(context);
+        audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        mContext = context;
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.addCategory(GeofenceUtils.CATEGORY_LOCATION_SERVICES);
+
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             Log.d(getClass().getName(),"Error");
@@ -77,10 +81,15 @@ public class LocationIntentService extends IntentService {
             }
         }
 
-        for(Geofence geofence : triggeringGeofences){
+        /*for(Geofence geofence : triggeringGeofences){
             triggeringGeofencesIdsList.remove(geofence.getRequestId());
-        }
+        }*/
     }
+
+    private Context getContext(){
+        return mContext;
+    }
+
     public void changePhoneMode(String modeOfPhone){
         if (TextUtils.equals(modeOfPhone, ModeOfPhone.Loud.toString())){
             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -99,12 +108,12 @@ public class LocationIntentService extends IntentService {
         Log.d(getClass().getName(),"Sending notification");
         Log.d("&&&&&&&&&", String.valueOf(id));
         Log.d("**********",address);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
         builder.setContentTitle("Profile Manager")
                 .setContentText("Entered Geofence " +address).setSmallIcon(R.drawable.marker)
                 .setAutoCancel(true);
-        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        Intent notificationIntent = new Intent(getContext(), MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getContext());
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
