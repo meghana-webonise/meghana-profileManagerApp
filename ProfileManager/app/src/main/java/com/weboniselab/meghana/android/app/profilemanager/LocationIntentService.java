@@ -101,7 +101,7 @@ public class LocationIntentService extends IntentService {
         Log.d("**********",address);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Profile Manager")
-                .setContentText(address).setSmallIcon(R.drawable.marker)
+                .setContentText("Entered Geofence " +address).setSmallIcon(R.drawable.marker)
                 .setAutoCancel(true);
         Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

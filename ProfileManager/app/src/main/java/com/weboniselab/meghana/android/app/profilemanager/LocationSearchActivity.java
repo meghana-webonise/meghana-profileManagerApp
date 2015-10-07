@@ -1,6 +1,7 @@
 package com.weboniselab.meghana.android.app.profilemanager;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
@@ -9,6 +10,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +43,7 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
     DatabaseOperations databaseOperations;
     String address;
     Intent locationService;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +120,6 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
             if(location!=null){
                 onLocationChanged(location);
             }
-           // locationManager.requestLocationUpdates(provider, 20000, 0, this);
         }
         addMarker();
         if (googleMap == null) {
@@ -141,13 +144,18 @@ public class LocationSearchActivity extends AppCompatActivity implements Locatio
                 longitude = latLng.longitude;
                 Log.d("latLng.latitude", String.valueOf(latitude));
                 Log.d("latLng.longitude", String.valueOf(longitude));
-                try {
+
+                ConnectivityManager connectivityManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
                     StringBuffer addressOfSelectedPlace = getAddressOfSelectedPlace(latitude, longitude);
+                boolean isConnected = networkInfo != null &&
+                        networkInfo.isConnectedOrConnecting();
+                if (isConnected) {
                     address = addressOfSelectedPlace.toString();
                     Log.d("Address of place", String.valueOf(addressOfSelectedPlace));
-                }catch (Exception e){
-                    Toast.makeText(LocationSearchActivity.this, "Enable Wifi", Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
+                }
+                else {
+                    Toast.makeText(LocationSearchActivity.this, "Connect to Wifi", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -78,6 +78,8 @@
         <service android:name=".LocationIntentService"
             android:exported="true"></service>
 
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+
     </application>
 
 </manifest>
